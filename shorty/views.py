@@ -1,28 +1,20 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
 
 import random, string, json
 
+from shorty.utils import url_is_valid, shortcode_is_valid, shortcode_doesnt_exist, get_short_code
+from shorty.utils import JsonResponse
 from shorty.models import ShortURL
 
 
-def shortcode_doesnt_exist(shortcode):
-    return ShortURL.objects.filter(shortcode=shortcode).count() == 0
-
-def get_new_code(size=6, chars=string.letters + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
-
-def get_short_code():
-    while True:
-        c = get_new_code()
-        if shortcode_doesnt_exist(c):
-            break
-    return c
 
 @csrf_exempt
 def shorten(request):
+    msg409 = "The the desired shortcode is already in use. Shortcodes are case-sensitive."
+    msg400 = "url is not present or is invalid"
+    msg422 = "The shortcode fails to meet the regex following regexp: ^[0-9a-zA-Z_]{4,}$"
+
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -32,23 +24,25 @@ def shorten(request):
 
         url       = data.get('url')
         shortcode = data.get('shortcode')
-        print url
-        print shortcode
 
-        if url:
+        if url and url_is_valid(url):
             if shortcode:
-                if shortcode_doesnt_exist(shortcode):
+                if shortcode_doesnt_exist(shortcode) and shortcode_is_valid(shortcode):
                     su = ShortURL(shortcode=shortcode, url=url)
+                    su.save()
+                    return JsonResponse(su.get_stats(), 201)
                 else:
-                    pass
-                    #greska postoji kod
+                    if not shortcode_doesnt_exist(shortcode):
+                        return JsonResponse({'error': msg409}, 409)
+                    else:
+                        return JsonResponse({'error': msg422}, 422)
             else:
                 shortcode = get_short_code()
-                print "nema shorta"
-
+                su = ShortURL(shortcode=shortcode, url=url)
+                su.save()
+                return JsonResponse(su.get_stats(), 201)
         else:
-            #url not provided - err or invalid
-            print "nema urla"
+            return JsonResponse({'error': msg400}, 400)
 
     #Handle /shorten as a GET
     return HttpResponse("Hello")
