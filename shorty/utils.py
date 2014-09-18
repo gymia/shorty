@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
-import re, json
+import re, json, string, random
 
 from shorty.models import ShortURL
 
