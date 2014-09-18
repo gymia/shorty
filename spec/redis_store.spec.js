@@ -1,11 +1,5 @@
-var sinon = require('sinon');
-var chai = require('chai');
-var expect = chai.expect;
-
-// promises support
-var Promise = require('rsvp').Promise;
-require('sinon-as-promised')(Promise);
-chai.use(require('chai-as-promised'));
+var common = require('./support/common');
+var sinon = common.sinon, expect = common.expect;
 
 var RedisStore = require('../lib/redis_store');
 
@@ -27,6 +21,13 @@ describe('Redis Store', function() {
       client.hget.withArgs(shortcode, 'url').resolves(url);
       var result = store.getURL(shortcode);
       return expect(result).to.eventually.equal(url);
+    });
+
+    it('returns rejected promise when URL is not found', function() {
+      client.hget = sinon.stub();
+      client.hget.withArgs(shortcode, 'url').resolves(null);
+      var result = store.getURL(shortcode);
+      return expect(result).to.be.rejected;
     });
 
     it('returns rejected promise on failure', function() {
