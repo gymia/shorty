@@ -30,4 +30,18 @@ describe('App', function() {
     });
 
   });
+
+  describe('POST /shorten', function() {
+    it('returns 201 and the shortcode on success', function(done) {
+      var url = 'http://www.example.com';
+      var shortcode = 'Sh0rtCd';
+      shortener.shortenURL = function(url) { return shortcode; };
+      request(app)
+        .post('/shorten')
+        .send({ url: url })
+        .expect(201, { shortcode: shortcode })
+        .end(done);
+    });
+  });
+
 });
