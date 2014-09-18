@@ -1,13 +1,29 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
-import random, string, json
+import json
 
 from shorty.utils import url_is_valid, shortcode_is_valid, shortcode_doesnt_exist, get_short_code
 from shorty.utils import JsonResponse
 from shorty.models import ShortURL
 
 
+def redirect(request, shortcode):
+    msg404 = "The shortcode cannot be found in the system"
+    su = ShortURL.objects.filter(shortcode=shortcode).first()
+    if su:
+        su.save()
+        return HttpResponseRedirect(su.url)
+    else:
+        return JsonResponse({'error': msg404}, 404)
+
+def shorten_stats(request, shortcode):
+    msg404 = "The shortcode cannot be found in the system"
+    su = ShortURL.objects.filter(shortcode=shortcode).first()
+    if su:
+        return JsonResponse(su.get_stats(), 200)
+    else:
+        return JsonResponse({'error': msg404}, 404)
 
 @csrf_exempt
 def shorten(request):
@@ -19,8 +35,7 @@ def shorten(request):
         try:
             data = json.loads(request.body)
         except:
-            #Invalid JSON recieved
-            pass
+            return JsonResponse({'error': "Invalid JSON sent."}, 400)
 
         url       = data.get('url')
         shortcode = data.get('shortcode')
@@ -30,7 +45,7 @@ def shorten(request):
                 if shortcode_doesnt_exist(shortcode) and shortcode_is_valid(shortcode):
                     su = ShortURL(shortcode=shortcode, url=url)
                     su.save()
-                    return JsonResponse(su.get_stats(), 201)
+                    return JsonResponse({"shortcode":su.shortcode}, 201)
                 else:
                     if not shortcode_doesnt_exist(shortcode):
                         return JsonResponse({'error': msg409}, 409)
@@ -40,9 +55,9 @@ def shorten(request):
                 shortcode = get_short_code()
                 su = ShortURL(shortcode=shortcode, url=url)
                 su.save()
-                return JsonResponse(su.get_stats(), 201)
+                return JsonResponse({"shortcode":su.shortcode}, 201)
         else:
             return JsonResponse({'error': msg400}, 400)
 
     #Handle /shorten as a GET
-    return HttpResponse("Hello")
+    return redirect(request, "shorten")
