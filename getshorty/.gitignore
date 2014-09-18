@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+Thumbs.db
+desktop.ini
+db.sqlite3
+shorty/migrations/*

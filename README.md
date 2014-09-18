@@ -99,7 +99,7 @@ Error | Description
 ### GET /:shortcode/stats
 
 ```
-GET /:code
+GET /:shortcode/stats
 Content-Type: "application/json"
 ```
 
@@ -115,8 +115,8 @@ Content-Type: "application/json"
 
 {
   "startDate": "2012-04-23T18:25:43.511Z",
-  "lastSeenDate": "2012-04-23T18:25:43.511Z",
-  "redirectCount": 0
+  "lastSeenDate": "2012-04-23T18:26:43.511Z",
+  "redirectCount": 1
 }
 ```
 
