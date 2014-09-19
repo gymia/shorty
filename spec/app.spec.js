@@ -36,6 +36,7 @@ describe('App', function() {
   });
 
   describe('POST /shorten', function() {
+
     it('returns 201 and the shortcode on success', function(done) {
       var url = 'http://www.example.com';
       var shortcode = 'Sh0rtCd';
@@ -47,6 +48,42 @@ describe('App', function() {
         .expect(201, { shortcode: shortcode })
         .end(done);
     });
+
+    it('returns 400 when url is not provided', function(done) {
+      request(app)
+        .post('/shorten')
+        .send({ urll: 'http://typo.in.parameter.name' })
+        .expect(400)
+        .end(done);
+    });
+
+    describe('with specified shortcode requested', function() {
+      var url = 'http://www.example.com';
+      var shortcode = 'Sh0rtCd';
+
+      it('returns 409 if shortcode already exists', function(done) {
+        shortener.shortenURLWithShortcode = sinon.stub();
+        var message = "shortcode already exists";
+        shortener.shortenURLWithShortcode.rejects(new Error(message));
+        request(app)
+          .post('/shorten')
+          .send({ url: url, shortcode: shortcode })
+          .expect(409)
+          .end(done);
+      });
+
+      it('returns 422 if shortcode has incorrect format', function(done) {
+        shortener.shortenURLWithShortcode = sinon.stub();
+        var message = "invalid shortcode format";
+        shortener.shortenURLWithShortcode.rejects(new Error(message));
+        request(app)
+          .post('/shorten')
+          .send({ url: url, shortcode: 'abc' })
+          .expect(422)
+          .end(done);
+      });
+    });
+
   });
 
   describe('GET /:shortcode/stats', function() {

@@ -60,6 +60,40 @@ describe('URL Shortener', function() {
 
   });
 
+  describe('#shortenURLWithShortcode', function() {
+
+    it('rejects with "invalid shortcode format"', function() {
+      var shortcode = 'a';
+      store.addURL = sinon.stub();
+      store.addURL.withArgs(shortcode, url).resolves();
+      store.exists = sinon.stub();
+      store.exists.withArgs(shortcode).resolves(false);
+      var result = shortener.shortenURLWithShortcode(url, shortcode);
+      var expected = 'invalid shortcode format';
+      return expect(result).to.be.rejectedWith(Error, expected);
+    });
+
+    it('rejects with "shortcode already exists"', function() {
+      store.addURL = sinon.stub();
+      store.addURL.withArgs(shortcode, url).resolves();
+      store.exists = sinon.stub();
+      store.exists.withArgs(shortcode).resolves(true);
+      var result = shortener.shortenURLWithShortcode(url, shortcode);
+      var expected = 'shortcode already exists';
+      return expect(result).to.be.rejectedWith(Error, expected);
+    });
+
+    it('returns a promise of shortcode', function() {
+      store.addURL = sinon.stub();
+      store.addURL.withArgs(shortcode, url).resolves();
+      store.exists = sinon.stub();
+      store.exists.withArgs(shortcode).resolves(false);
+      var result = shortener.shortenURLWithShortcode(url, shortcode);
+      return expect(result).to.eventually.equal(shortcode);
+    });
+
+  });
+
   describe('#getStats', function() {
 
     it('returns a promise of shortcode stats', function() {

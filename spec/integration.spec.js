@@ -30,8 +30,9 @@ describe('Full App', function() {
       .end(done);
   });
 
+  var url = 'http://www.example.com';
+
   it('shortens URLs and redirects with 302 afterwards', function(done) {
-    var url = 'http://www.example.com';
     request(app)
       .post('/shorten')
       .send({ url: url })
@@ -50,7 +51,6 @@ describe('Full App', function() {
   var isoDateFormat = /\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}\.\d{3}([+-]\d{2}\:\d{2}|Z)/;
 
   it('collects stats and returns them in correct format', function(done) {
-    var url = 'http://www.example.com';
     request(app)
       .post('/shorten')
       .send({ url: url })
@@ -84,5 +84,14 @@ describe('Full App', function() {
               });
           });
       });
+  });
+
+  it('shortens URLs into custom requested shortcodes', function(done) {
+    var shortcode = 'requested' + Date.now();
+    request(app)
+      .post('/shorten')
+      .send({ url: url, shortcode: shortcode })
+      .expect(201, { shortcode: shortcode })
+      .end(done);
   });
 });
