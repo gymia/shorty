@@ -1,0 +1,36 @@
+{
+  "name": "shorty",
+  "version": "0.0.0",
+  "description": "URL shortener",
+  "homepage": "https://github.com/gymia/shorty",
+  "license": "MIT",
+  "keywords": [
+    "url",
+    "shortener"
+  ],
+  "author": "Tomasz Szczęśniak-Szlagowski <spect88@gmail.com>",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gymia/shorty.git"
+  },
+  "scripts": {
+    "test": "mocha spec",
+    "start": "node lib/server.js"
+  },
+  "dependencies": {
+    "express": "^4.9.2",
+    "body-parser": "^1.8.2",
+    "then-redis": "^0.3.12",
+    "rsvp": "^3.0.13",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "supertest": "^0.13.0",
+    "sinon": "^1.10.3",
+    "sinon-as-promised": "^1.1.0",
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1"
+  }
+}

@@ -1,35 +1,38 @@
-Shorty Challenge
+URL Shortener
 ================
 
-The trendy modern question for developer inteviews seems to be, "how to create an url shortner". Not wanting to fall too far from the cool kids, we have a challenge for you!
+## System requirements:
 
-## The Challenge
+- Node.JS
+- Redis
 
-The challenge, if you choose to accept it, is to create a micro service to shorten urls, in the style that TinyURL and bit.ly made popular.
+You can install both of these with your system's package manager.
 
-## Rules
+## Installation
 
-1. The service must expose HTTP endpoints according to the definition below.
-2. The service must be self contained, you can use any language and technology you like, but it must be possible to set it up from a fresh install of Ubuntu Server 14.04, by following the steps you write in the README.
-3. It must be well tested, it must also be possible to run the entire test suit with a single command from the directory of your repository.
-4. The service must be versioned using git and submitted by making a Pull Request against this repository, git history **should** be meaningful.
-5. You don't have to use a datastore, you can have all data in memory, but we'd be more impressed if you do use one.
+1. Clone this repo
+2. Install dependencies with `npm install`
+3. Make sure Redis is available on default port (or run it with `redis-server`)
+4. Run `npm start`
 
-## Tips
+App starts on port 3000 by default, but you can override this with environment variable:
 
-* Less is more, small is beautiful, you know the drill — stick to the requirements.
-* Don't try to make the microservice play well with others, the system is all yours.
-* No need to take care of domains, that's for a reverse proxy to handle.
-* Unit tests > Integration tests, but be careful with untested parts of the system.
+    PORT=5000 npm start
 
-**Good Luck!** — not that you need any ;)
+## Running tests
+
+To run the tests you need to have `mocha` installed globally:
+
+    npm install -g mocha
+
+To run the whole suite use `npm test` command.
+
+**Note** One of the tests (integration) requires Redis server to be running.
+
 
 -------------------------------------------------------------------------
 
 ## API Documentation
-
-**All responses must be encoded in JSON and have the appropriate Content-Type header**
-
 
 ### POST /shorten
 
@@ -115,8 +118,8 @@ Content-Type: "application/json"
 
 {
   "startDate": "2012-04-23T18:25:43.511Z",
-  "lastSeenDate": "2012-04-23T18:25:43.511Z",
-  "redirectCount": 0
+  "lastSeenDate": "2012-04-25T13:26:47.732Z",
+  "redirectCount": 1
 }
 ```
 
@@ -131,5 +134,3 @@ lastSeenDate      | date of the last time the a redirect was issued, not present
 Error | Description
 ----- | ------------
 404   | The ```shortcode``` cannot be found in the system
-
-
