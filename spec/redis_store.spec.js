@@ -103,7 +103,7 @@ describe('Redis Store', function() {
 
     it('returns rejected promise when no such shortcode', function() {
       client.hgetall = sinon.stub();
-      client.hgetall.withArgs(shortcode).resolves(null);
+      client.hgetall.withArgs(shortcode).resolves({});
       var result = store.getStats(shortcode);
       return expect(result).to.be.rejected;
     });
