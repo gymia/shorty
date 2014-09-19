@@ -17,18 +17,30 @@ describe('URL Shortener', function() {
 
   describe('#getURLByShortcode', function() {
 
-    it('returns a promise of URL', function() {
+    beforeEach(function() {
       store.getURL = sinon.stub();
+      store.logRedirect = sinon.stub();
+    });
+
+    it('returns a promise of URL', function() {
       store.getURL.withArgs(shortcode).resolves(url);
       var result = shortener.getURLByShortcode(shortcode);
       return expect(result).to.eventually.equal(url);
     });
 
     it('rejects if shortcode not found', function() {
-      store.getURL = sinon.stub();
       store.getURL.withArgs(shortcode).rejects();
       var result = shortener.getURLByShortcode(shortcode);
       return expect(result).to.be.rejected;
+    });
+
+    it('logs redirect on success', function(done) {
+      store.getURL.withArgs(shortcode).resolves(url);
+      store.logRedirect = function(arg) {
+        expect(arg).to.equal(shortcode);
+        done();
+      };
+      shortener.getURLByShortcode(shortcode);
     });
 
   });
@@ -46,6 +58,24 @@ describe('URL Shortener', function() {
       return expect(result).to.eventually.equal(shortcode);
     });
 
+  });
+
+  describe('#getStats', function() {
+
+    it('returns a promise of shortcode stats', function() {
+      var stats = { 'some': 'stats' };
+      store.getStats = sinon.stub();
+      store.getStats.withArgs(shortcode).resolves(stats);
+      var result = shortener.getStats(shortcode);
+      return expect(result).to.eventually.equal(stats);
+    });
+
+    it('rejects if stats not found', function() {
+      store.getStats = sinon.stub();
+      store.getStats.withArgs(shortcode).rejects();
+      var result = shortener.getStats(shortcode);
+      return expect(result).to.be.rejected;
+    });
   });
 
 });

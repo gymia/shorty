@@ -49,4 +49,31 @@ describe('App', function() {
     });
   });
 
+  describe('GET /:shortcode/stats', function() {
+
+    it('returns 404 when stats cannot be found', function(done) {
+      shortener.getStats = sinon.stub();
+      shortener.getStats.rejects();
+      request(app)
+        .get('/existing/stats')
+        .expect(404)
+        .end(done);
+    });
+
+    it('returns 200 and statistics on success', function(done) {
+      var stats = {
+        'startDate': '2012-04-23T18:25:43.511Z',
+        'lastSeenDate': '2012-04-23T18:25:43.511Z',
+        'redirectCount': 1
+      };
+      shortener.getStats = sinon.stub();
+      shortener.getStats.withArgs('existing').resolves(stats);
+      request(app)
+        .get('/existing/stats')
+        .expect(200, stats)
+        .end(done);
+    });
+
+  });
+
 });

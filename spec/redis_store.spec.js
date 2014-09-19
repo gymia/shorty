@@ -42,15 +42,15 @@ describe('Redis Store', function() {
   describe('#addURL', function() {
 
     it('returns a promise of adding a new mapping', function() {
-      client.hset = sinon.stub()
-      client.hset.withArgs(shortcode, 'url', url).resolves();
+      client.hmset = sinon.stub()
+      client.hmset.resolves();
       var result = store.addURL(shortcode, url);
       return expect(result).to.be.fulfilled;
     });
 
     it('returns rejected promise on failure', function() {
-      client.hset = sinon.stub();
-      client.hset.rejects();
+      client.hmset = sinon.stub();
+      client.hmset.rejects();
       var result = store.addURL(shortcode, url);
       return expect(result).to.be.rejected;
     });
@@ -77,6 +77,34 @@ describe('Redis Store', function() {
       client.exists = sinon.stub();
       client.exists.rejects();
       var result = store.exists(shortcode);
+      return expect(result).to.be.rejected;
+    });
+
+  });
+
+  describe('#getStats', function() {
+
+    it('returns a promise of stats', function() {
+      var hash = {
+        url: 'http://example.com',
+        startDate: Date.now(),
+        lastSeenDate: Date.now(),
+        redirectCount: 1
+      };
+      client.hgetall = sinon.stub();
+      client.hgetall.withArgs(shortcode).resolves(hash);
+      var result = store.getStats(shortcode);
+      return expect(result).to.eventually.deep.equal({
+        startDate: hash.startDate,
+        lastSeenDate: hash.lastSeenDate,
+        redirectCount: hash.redirectCount
+      });
+    });
+
+    it('returns rejected promise when no such shortcode', function() {
+      client.hgetall = sinon.stub();
+      client.hgetall.withArgs(shortcode).resolves(null);
+      var result = store.getStats(shortcode);
       return expect(result).to.be.rejected;
     });
 
