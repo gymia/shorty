@@ -19,7 +19,7 @@ module Shorty
       end
 
       post do
-        { shortcode: params[:shortcode] }
+        { shortcode: '' }
       end
     end
   end
