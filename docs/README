@@ -9,6 +9,7 @@ SYSTEM REQUIREMENTS
 INSTALL
 =====================
 1. Setup the DB. See:  ./scripts/build/db/base.sql
+2. Create the directory:  ./data/logs/error/php
 
 
 =====================
