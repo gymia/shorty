@@ -1,0 +1,1 @@
+DROP DATABASE `cloneui_gymia_shorty` ;

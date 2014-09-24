@@ -1,0 +1,17 @@
+=====================
+SYSTEM REQUIREMENTS
+=====================
+1. PHP 5.3.3+
+2. MySQL
+
+
+=====================
+INSTALL
+=====================
+1. Setup the DB. See:  ./scripts/build/db/base.sql
+
+
+=====================
+DOCS
+=====================
+1. https://github.com/gymia/shorty/blob/master/README.md

@@ -1,0 +1,1 @@
+TRUNCATE `gymia_shorty_url` ;
