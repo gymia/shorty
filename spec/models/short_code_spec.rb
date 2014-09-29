@@ -3,8 +3,8 @@ require 'rails_helper'
 
 describe ShortCode do
   context 'validations' do
-    it { should validate_uniqueness_of :short_code }
-    it { allow_value(/^[0-9a-zA-Z_]{4,}$/).for(:short_code) }
+    it { should validate_uniqueness_of :shortcode }
+    it { allow_value(/^[0-9a-zA-Z_]{4,}$/).for(:shortcode) }
   end
 
   context "shortcode generator" do
@@ -16,7 +16,7 @@ describe ShortCode do
 
     it 'short code generated when missing' do
       short_code.save
-      expect(short_code.short_code).not_to be_empty
+      expect(short_code.shortcode).not_to be_empty
     end
   end
 

@@ -35,6 +35,16 @@ describe Shorty::API do
       expect(response.status).to eq(201)
       expect(response.header['Content-Type']).to eq('application/json')
     end
+
+    it 'use shortcode' do
+      post '/shorten', url: 'http://google.com', shortcode: 'abcd'
+
+      json = JSON.parse response.body
+      expect(json["shortcode"]).to eq 'abcd'
+
+      expect(response.status).to eq(201)
+      expect(response.header['Content-Type']).to eq('application/json')
+    end
   end
 end
 
