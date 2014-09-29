@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929191829) do
+ActiveRecord::Schema.define(version: 20140929203405) do
 
   create_table "short_codes", force: true do |t|
-    t.string   "shortcode"
+    t.text     "shortcode"
     t.string   "url"
     t.integer  "hits"
     t.datetime "created_at"

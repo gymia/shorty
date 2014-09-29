@@ -1,7 +1,7 @@
 class ShortCode < ActiveRecord::Base
 
   validates_format_of :shortcode, with: /\A[0-9a-zA-Z_]{4,}\z/
-  validates_uniqueness_of :shortcode
+  validates_uniqueness_of :shortcode, case_sensitive: false
 
   before_validation(on: :create) do
     self.shortcode = generate if self.shortcode.nil?
