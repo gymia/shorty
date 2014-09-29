@@ -45,6 +45,14 @@ describe Shorty::API do
       expect(response.status).to eq(201)
       expect(response.header['Content-Type']).to eq('application/json')
     end
+
+    it 'Duplicate shortcode fail' do
+      post '/shorten', url: 'http://google.com', shortcode: 'alpha'
+      post '/shorten', url: 'http://google.com', shortcode: 'alpha'
+
+      expect(response.status).to eq(409)
+      expect(response.header['Content-Type']).to eq('application/json')
+    end
   end
 end
 

@@ -24,7 +24,14 @@ module Shorty
           url: params[:url],
           shortcode: params[:shortcode]
         }
-        sc = ShortCode.create(fields)
+
+        begin
+          sc = ShortCode.create!(fields)
+        rescue ActiveRecord::RecordInvalid
+          status 409
+          return
+        end
+
         { shortcode: sc.shortcode }
       end
     end
