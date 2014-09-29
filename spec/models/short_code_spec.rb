@@ -13,6 +13,12 @@ describe ShortCode do
     it 'generates short code' do
       expect(short_code.generate.length).to be >= 4
     end
+
+    it 'short code generated when missing' do
+      short_code.save
+      expect(short_code.short_code).not_to be_empty
+    end
   end
+
 end
 

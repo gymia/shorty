@@ -3,6 +3,10 @@ class ShortCode < ActiveRecord::Base
   validates_format_of :short_code, with: /\A[0-9a-zA-Z_]{4,}\z/
   validates_uniqueness_of :short_code
 
+  before_validation(on: :create) do
+    self.short_code = generate if self.short_code.nil?
+  end
+
   def generate
     short_code = ''
     loop do
