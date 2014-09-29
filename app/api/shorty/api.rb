@@ -19,7 +19,8 @@ module Shorty
       end
 
       post do
-        { shortcode: '' }
+        sc = ShortCode.create params.permit(:url, :shortcode)
+        { shortcode: sc.short_code }
       end
     end
   end

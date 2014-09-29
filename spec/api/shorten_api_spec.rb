@@ -5,12 +5,14 @@ describe Shorty::API do
     let(:short_code) { create(:short_code) }
 
     it 'with valid URL' do
+      expect_any_instance_of(ShortCode).to receive(:generate).and_return('testcode')
       post '/shorten', url: 'http://google.com'
-      body = { shortcode: ''}
 
       expect(response.status).to eq(201)
       expect(response.header['Content-Type']).to eq('application/json')
-      expect(response.body).to eq body.to_json
+
+      json = JSON.parse response.body
+      expect(json["shortcode"]).to eq 'testcode'
     end
 
     it 'missing URL' do

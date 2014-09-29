@@ -14,7 +14,7 @@ class ShortCode < ActiveRecord::Base
       min_length = Random.rand(4..6)
       start_char = Random.rand(0..string.length-min_length)
       short_code = string[start_char, min_length]
-      break if ShortCode.create(short_code: short_code).valid?
+      break if ShortCode.new(short_code: short_code).valid?
     end
     short_code
   end
