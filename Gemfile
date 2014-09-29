@@ -10,7 +10,12 @@ gem 'spring',        group: :development
 
 gem 'debugger', group: [:development, :test]
 
-gem 'rspec-rails', group: :test
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+end
 
+# API
 gem 'grape'
 
