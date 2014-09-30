@@ -42,6 +42,7 @@ module Shorty
         sc = ShortCode.find_by_shortcode(params[:shortcode])
         if sc
           ShortCode.increment_counter(:hits, sc.id)
+          sc.touch
           return redirect sc.url
         end
         error! 'The shortcode cannot be found in the system', 404
