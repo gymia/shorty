@@ -3,6 +3,31 @@ Shorty Challenge
 
 The trendy modern question for developer inteviews seems to be, "how to create an url shortner". Not wanting to fall too far from the cool kids, we have a challenge for you!
 
+## Live
+
+ * Live site: [http://gymia-shorty.herokuapp.com/](http://gymia-shorty.herokuapp.com/)
+ * Shortened URL: [http://gymia-shorty.herokuapp.com/728dd9](http://gymia-shorty.herokuapp.com/728dd9)
+ * Stats: [http://gymia-shorty.herokuapp.com/728dd9/stats](http://gymia-shorty.herokuapp.com/728dd9/stats)
+
+## Installation
+
+```
+$ git clone git@github.com:sime/shorty.git
+$ cd shorty
+$ bundle install
+$ rake db:migrate
+$ rails s
+OR
+$ RAILS_ENV=production rails s
+```
+Then server should be running, visit to confirm [http://localhost:3000](http://localhost:3000)
+
+### Testing
+
+```
+$ rspec
+```
+
 ## The Challenge
 
 The challenge, if you choose to accept it, is to create a micro service to shorten urls, in the style that TinyURL and bit.ly made popular.
