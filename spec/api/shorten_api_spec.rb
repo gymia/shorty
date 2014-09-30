@@ -64,11 +64,44 @@ describe Shorty::API do
       expect(response.header['Location']).to eq('http://google.com.au')
     end
 
+    it 'increment counter' do
+      post '/shorten', url: 'http://google.com.au', shortcode: 'counter'
+      expect(response.status).to eq(201)
+      expect(ShortCode.find_by_shortcode('counter').hits).to eq 0
+
+      get '/counter'
+      expect(ShortCode.find_by_shortcode('counter').hits).to eq 1
+
+      expect(response.status).to eq(302)
+      expect(response.header['Content-Type']).to eq('application/json')
+      expect(response.header['Location']).to eq('http://google.com.au')
+    end
+
     it 'invalid shortcode' do
       get '/invalid'
 
       expect(response.status).to eq(404)
       expect(response.header['Content-Type']).to eq('application/json')
+    end
+  end
+  describe "GET /:shortcode/code" do
+    it 'get shortcode stats' do
+      post '/shorten', url: 'http://google.com.au', shortcode: 'statsget'
+
+      # Increment counter
+      get '/statsget'
+      get '/statsget/stats'
+
+      sc = ShortCode.find_by_shortcode('statsget')
+      stats = {
+        "startDate" => sc.created_at,
+        "lastSeenDate" => sc.updated_at,
+        "redirectCount" => 1
+      }
+
+      expect(response.status).to eq(200)
+      expect(response.header['Content-Type']).to eq('application/json')
+      expect(response.body).to eq stats.to_json
     end
   end
 end

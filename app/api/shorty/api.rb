@@ -37,13 +37,27 @@ module Shorty
 
     end
 
-    get '/:shortcode' do
-      puts params.inspect
-      sc = ShortCode.find_by_shortcode(params[:shortcode])
-      if sc
-        return redirect sc.url
+    resource '/' do
+      get ':shortcode' do
+        sc = ShortCode.find_by_shortcode(params[:shortcode])
+        if sc
+          ShortCode.increment_counter(:hits, sc.id)
+          return redirect sc.url
+        end
+        error! 'The shortcode cannot be found in the system', 404
       end
-      error! 'The shortcode cannot be found in the system', 404
+
+      get ':shortcode/stats' do
+        sc = ShortCode.find_by_shortcode(params[:shortcode])
+        if sc
+          return {
+            'startDate' => sc.created_at,
+            'lastSeenDate' => sc.updated_at,
+            'redirectCount' => sc.hits
+          }
+        end
+        error! 'The shortcode cannot be found in the system', 404
+      end
     end
   end
 end
