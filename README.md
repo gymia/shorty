@@ -12,6 +12,7 @@ The trendy modern question for developer inteviews seems to be, "how to create a
 ## Installation
 
 ```
+$ sudo apt-get install ruby2.0 git bundler
 $ git clone git@github.com:sime/shorty.git
 $ cd shorty
 $ bundle install
