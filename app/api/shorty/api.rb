@@ -34,6 +34,15 @@ module Shorty
 
         { shortcode: sc.shortcode }
       end
+
+    end
+
+    route :any, '*path', :anchor => true do
+      sc = ShortCode.find_by_shortcode(params[:path])
+      if sc
+        return redirect sc.url
+      end
+      error! 'The shortcode cannot be found in the system', 404
     end
   end
 end

@@ -54,5 +54,22 @@ describe Shorty::API do
       expect(response.header['Content-Type']).to eq('application/json')
     end
   end
+  describe "GET /:shortcode" do
+    it 'redirect on shortcode' do
+      post '/shorten', url: 'http://google.com.au', shortcode: 'valid'
+      get '/valid'
+
+      expect(response.status).to eq(302)
+      expect(response.header['Content-Type']).to eq('application/json')
+      expect(response.header['Location']).to eq('http://google.com.au')
+    end
+
+    it 'invalid shortcode' do
+      get '/invalid'
+
+      expect(response.status).to eq(404)
+      expect(response.header['Content-Type']).to eq('application/json')
+    end
+  end
 end
 
