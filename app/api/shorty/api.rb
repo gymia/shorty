@@ -37,8 +37,9 @@ module Shorty
 
     end
 
-    route :any, '*path', :anchor => true do
-      sc = ShortCode.find_by_shortcode(params[:path])
+    get '/:shortcode' do
+      puts params.inspect
+      sc = ShortCode.find_by_shortcode(params[:shortcode])
       if sc
         return redirect sc.url
       end
