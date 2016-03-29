@@ -1,0 +1,48 @@
+{
+  "name": "shorty",
+  "version": "1.0.0",
+  "description": "Shorty Challenge in TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm run compile",
+    "start": "node ./dist/index.js &",
+    "pree2e": "node_modules/.bin/gulp compile-e2e",
+    "compile": "node_modules/.bin/gulp compile-all",
+    "e2e": "node_modules/.bin/mocha --reporter spec ./.tmp_e2e/**/*.e2e.js",
+    "pretest": "node_modules/.bin/gulp compile-test",
+    "test": "node_modules/.bin/mocha --reporter spec ./dist/**/*.spec.js",
+    "postinstall": "node_modules/.bin/typings install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://@github.com/shortycoder/shorty.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "Shorty"
+  ],
+  "author": "Shorty Coder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shortycoder/shorty/issues"
+  },
+  "homepage": "https://github.com/shortycoder/shorty#readme",
+  "dependencies": {
+    "restify": "^4.0.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-datetime": "^1.4.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-spawn-mocha": "^2.2.2",
+    "gulp-typescript": "^2.12.1",
+    "mocha": "^2.4.5",
+    "run-sequence": "^1.1.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.9"
+  }
+}

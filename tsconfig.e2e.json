@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "outDir": ".tmp_e2e"
+  },
+  "filesGlob": [
+    "./e2e/**/*.ts",
+    "./typings/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

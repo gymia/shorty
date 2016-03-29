@@ -1,0 +1,14 @@
+{
+  "ambientDevDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "chai-datetime": "registry:dt/chai-datetime#0.0.0+20160317120654",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "sinon": "registry:dt/sinon#1.16.0+20160317120654",
+    "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654"
+  },
+  "ambientDependencies": {
+    "bunyan": "registry:dt/bunyan#0.0.0+20160316155526",
+    "node": "registry:dt/node#4.0.0+20160319033040",
+    "restify": "registry:dt/restify#2.0.0+20160316155526"
+  }
+}
