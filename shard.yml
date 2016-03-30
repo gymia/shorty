@@ -1,0 +1,12 @@
+name: shorty
+version: 0.1.0
+
+authors:
+  - Umur Gedik <umurgdk@gmail.com>
+    
+license: MIT
+
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    branch: master
