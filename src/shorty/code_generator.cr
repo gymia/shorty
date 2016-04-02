@@ -11,8 +11,8 @@ class Shorty::CodeGenerator
   def initialize()
   end
 
-  def self.valid?(content)
-    !content.match(DESIRED_REGEX).nil?
+  def valid?(desired_code)
+    !desired_code.match(DESIRED_REGEX).nil?
   end
 
   def generate
