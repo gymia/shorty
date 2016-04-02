@@ -2,7 +2,8 @@ require "./spec_helper"
 
 describe Shorty::CodeGenerator do
   it "should generate a valid shortcode" do
-    code_generator = Shorty::CodeGenerator.new
+    repository = Shorty::MemoryRepository.new
+    code_generator = Shorty::CodeGenerator.new(repository)
 
     10.times do
       shortcode = code_generator.generate()
@@ -11,7 +12,8 @@ describe Shorty::CodeGenerator do
   end
 
   it "should validate user preferred shortcode" do
-    code_generator = Shorty::CodeGenerator.new
+    repository = Shorty::MemoryRepository.new
+    code_generator = Shorty::CodeGenerator.new(repository)
 
     code_generator.valid?("0aA_").should be_true
     code_generator.valid?("0aA-").should be_false

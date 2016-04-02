@@ -1,4 +1,5 @@
 require "time"
+require "./repositories/base_repository"
 
 class Shorty::CodeGenerator
   MAX_CHARS = 6
@@ -8,7 +9,7 @@ class Shorty::CodeGenerator
 
   POSSIBLE_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWYXZ".chars
 
-  def initialize()
+  def initialize(@repository : BaseRepository)
   end
 
   def valid?(desired_code)
@@ -16,6 +17,12 @@ class Shorty::CodeGenerator
   end
 
   def generate
-    POSSIBLE_CHARS.sample(MAX_CHARS).join
+    while code = POSSIBLE_CHARS.sample(MAX_CHARS).join
+      unless @repository.exists?(code)
+        break
+      end
+    end
+
+    return code
   end
 end
