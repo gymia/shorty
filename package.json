@@ -1,0 +1,22 @@
+{
+  "name": "shorty",
+  "version": "1.0.0",
+  "description": "Shorty Challenge",
+  "private": true,
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moo-gl/shorty.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moo-gl/shorty/issues"
+  },
+  "homepage": "https://github.com/moo-gl/shorty#readme",
+  "engines": {
+    "node": ">= 4"
+  }
+}
