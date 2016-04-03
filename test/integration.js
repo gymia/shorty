@@ -9,6 +9,8 @@ const request = require("supertest").agent(app(redisClient).listen());
 const expect = require("chai").expect;
 
 describe("Shorty Server", function () {
+  before((done) => redisClient.flushdb(done));
+
   it("fails with 404 when :shortcode doesn't exist", function (done) {
     request
       .get("/foobar")
