@@ -4,7 +4,8 @@
   "description": "Shorty Challenge",
   "private": true,
   "scripts": {
-    "start": "node main.js"
+    "start": "node main.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,9 @@
   },
   "dependencies": {
     "koa": "^1.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
   }
 }
