@@ -30,6 +30,15 @@ module.exports = function (redisClient) {
   const app = koa();
   const db = redisWrapper(redisClient);
 
+  app.use(function *(next) {
+    try {
+      yield next;
+    } catch (err) {
+      this.status = err.status || 500;
+      this.body = { message: err.message };
+    }
+  });
+
   app.use(bodyParser());
 
   const router = createRouter(db);
