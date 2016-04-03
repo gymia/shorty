@@ -2,7 +2,10 @@
 
 const app = require("../src/app");
 
-const request = require("supertest").agent(app().listen());
+const redis = require("fakeredis");
+const redisClient = redis.createClient();
+
+const request = require("supertest").agent(app(redisClient).listen());
 const expect = require("chai").expect;
 
 describe("Shorty Server", function () {
