@@ -18,5 +18,8 @@
   "homepage": "https://github.com/moo-gl/shorty#readme",
   "engines": {
     "node": ">= 4"
+  },
+  "dependencies": {
+    "koa": "^1.2.0"
   }
 }
