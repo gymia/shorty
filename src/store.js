@@ -6,6 +6,14 @@ exports.create = function *(db, code, url) {
   const result = yield db.hsetnx(code, "url", url);
   const created = result === 1;
 
+  if (created) {
+    // Init shortcode stats
+    db.hmset(code, {
+      startDate: (new Date()).toISOString(),
+      redirectCount: 0
+    });
+  }
+
   return created;
 };
 
