@@ -21,6 +21,14 @@ exports.create = function *(db, code, url) {
 exports.find = function *(db, code) {
   const url = yield db.hget(code, "url");
 
+  if (url) {
+    // Update shortcode stats
+    db.batch()
+      .hset(code, "lastSeenDate", (new Date()).toISOString())
+      .hincrby(code, "redirectCount", 1)
+      .exec();
+  }
+
   return url;
 };
 
