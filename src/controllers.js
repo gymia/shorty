@@ -19,7 +19,9 @@ exports.create = function *(db, ctx) {
     url = "http://" + url;
   }
 
-  yield store.create(db, code, url);
+  const created = yield store.create(db, code, url);
+
+  ctx.assert(created, 409, "The desired shortcode is already in use.");
 
   ctx.status = 201;
   ctx.body = { shortcode: code };
