@@ -1,3 +1,23 @@
+Shorty Node.js Implementation
+==========================
+## Installation and Usage
+
+On Ubuntu you'll need `redis-server` and Node.js 4.x package from [NodeSource](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions):
+```sh
+$ sudo add-apt-repository universe
+$ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+$ sudo apt-get install -y nodejs redis-server git
+```
+
+After you have the necessary packages getting the server up and running is easy:
+```sh
+$ git clone https://github.com/moo-gl/shorty && cd shorty
+$ npm install
+$ redis-server &
+$ npm start
+```
+You can run the tests with `npm test`.
+
 Shorty Challenge
 ================
 

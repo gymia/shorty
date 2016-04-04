@@ -1,0 +1,38 @@
+{
+  "name": "shorty",
+  "version": "1.0.0",
+  "description": "Shorty Challenge",
+  "private": true,
+  "scripts": {
+    "start": "node main.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moo-gl/shorty.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moo-gl/shorty/issues"
+  },
+  "homepage": "https://github.com/moo-gl/shorty#readme",
+  "engines": {
+    "node": ">= 4"
+  },
+  "dependencies": {
+    "co-redis": "^2.1.0",
+    "koa": "^1.2.0",
+    "koa-bodyparser": "^2.0.1",
+    "koa-router": "^5.4.0",
+    "lodash": "^4.7.0",
+    "redis": "^2.6.0-1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-things": "^0.2.0",
+    "fakeredis": "^1.0.2",
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
+  }
+}
