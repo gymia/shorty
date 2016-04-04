@@ -141,4 +141,23 @@ describe("Shorty Server", function () {
         done();
       });
   });
+
+  it("prefixes url with http:// if needed", function (done) {
+    request
+      .post("/shorten")
+      .send({
+        url: "example.com",
+        shortcode: "noprotocol"
+      })
+      .accept("json")
+      .expect("Content-Type", /json/)
+      .expect(201, {
+        shortcode: "noprotocol"
+      }, function () {
+        request
+          .get("/noprotocol")
+          .expect("Location", "http://example.com")
+          .expect(302, done);
+      });
+  });
 });
