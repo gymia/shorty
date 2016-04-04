@@ -16,12 +16,16 @@ exports.find = function *(db, ctx) {
   const code = ctx.params.shortcode;
   const url = yield store.find(db, code);
 
+  ctx.assert(url, 404, "The shortcode cannot be found in the system");
+
   ctx.redirect(url);
 };
 
 exports.stats = function *(db, ctx) {
   const code = ctx.params.shortcode;
   const obj = yield store.stats(db, code);
+
+  ctx.assert(obj, 404, "The shortcode cannot be found in the system");
 
   ctx.body = obj;
 };
