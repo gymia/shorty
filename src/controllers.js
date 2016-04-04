@@ -32,6 +32,7 @@ exports.find = function *(db, ctx) {
   ctx.assert(url, 404, "The shortcode cannot be found in the system");
 
   ctx.redirect(url);
+  ctx.body = "";
 };
 
 exports.stats = function *(db, ctx) {
