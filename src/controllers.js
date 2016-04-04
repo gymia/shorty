@@ -41,5 +41,9 @@ exports.stats = function *(db, ctx) {
 
   ctx.assert(obj, 404, "The shortcode cannot be found in the system");
 
-  ctx.body = obj;
+  ctx.body = {
+    startDate: obj.startDate,
+    lastSeenDate: obj.lastSeenDate,
+    redirectCount: parseInt(obj.redirectCount, 10)
+  };
 };
