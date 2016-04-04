@@ -6,6 +6,15 @@ const store = require("./store");
 exports.create = function *(db, ctx) {
   const code = ctx.request.body.shortcode || shortcode.generate();
   const url = ctx.request.body.url;
+
+  ctx.assert(url, 400, "url is not present");
+
+  ctx.assert(
+    shortcode.isValid(code),
+    422,
+    "The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$."
+  );
+
   yield store.create(db, code, url);
 
   ctx.status = 201;
