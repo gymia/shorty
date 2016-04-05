@@ -1,7 +1,9 @@
 require "kemal"
+require "redis"
 require "./shorty/**"
 
-repository = Shorty::MemoryRepository.new
+redis_connection = Redis.new
+repository = Shorty::RedisRepository.new(redis_connection)
 code_generator = Shorty::CodeGenerator.new(repository)
 
 def error(context, code, message)
