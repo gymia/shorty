@@ -23,10 +23,6 @@ def not_found(context)
   return { "message" => "The shortcode cannot be found in the system" }.to_json
 end
 
-get "/" do
-  "Hello world"
-end
-
 post "/shorten" do |env|
   repository = env.repository
   code_generator = Shorty::CodeGenerator.new(repository)
