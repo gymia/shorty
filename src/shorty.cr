@@ -2,9 +2,16 @@ require "kemal"
 require "redis"
 require "./shorty/**"
 
-redis_connection = Redis.new
-repository = Shorty::RedisRepository.new(redis_connection)
-code_generator = Shorty::CodeGenerator.new(repository)
+config = Shorty::Config.new
+config.parse
+
+if config.repository == "memory"
+  Kemal.config.add_handler(Shorty::MemoryRepositoryHandler.new)
+elsif config.repository == "redis"
+  Kemal.config.add_handler(Shorty::RedisRepositoryHandler.new(config.redis_host, config.redis_port))
+end
+
+puts "Shorty running on #{config.repository} repository!"
 
 def error(context, code, message)
   context.response.status_code = code
@@ -13,7 +20,6 @@ end
 
 def not_found(context)
   context.response.status_code = 404
-  return "The shortcode cannot be found in the system"
   return { "message" => "The shortcode cannot be found in the system" }.to_json
 end
 
@@ -86,5 +92,8 @@ get "/:shortcode/stats" do |env|
   end
 end
 
+Kemal.config.host_binding = config.host
+Kemal.config.port = config.port
+Kemal.config.env = config.environment
 Kemal.run
 
