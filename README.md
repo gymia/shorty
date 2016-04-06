@@ -24,6 +24,13 @@ $ git checkout crystal-implementation
 $ cd shorty
 $ crystal deps
 $ crystal build src/shorty.cr --release
+```
+
+## Running tests and server on Ubuntu
+
+```
+# Run unit tests
+$ crystal spec
 
 # Run
 $ redis-server &
