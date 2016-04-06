@@ -1,0 +1,9 @@
+.git
+.gitignore
+docker-compose.yml
+libs
+benchmarks
+/.crystal/
+/.shards/
+*.rdb
+*.swp
