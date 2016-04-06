@@ -1,30 +1,35 @@
-Shorty Challenge
-================
+## How to run with docker
 
-The trendy modern question for developer inteviews seems to be, "how to create an url shortner". Not wanting to fall too far from the cool kids, we have a challenge for you!
+```
+$ docker-compose build
+$ docker-compose up
+```
 
-## The Challenge
+## How to build on Ubuntu (ubuntu image on docker)
 
-The challenge, if you choose to accept it, is to create a micro service to shorten urls, in the style that TinyURL and bit.ly made popular.
+```
+# Install requirements
 
-## Rules
+$ sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 09617FD37CC06B54
+$ sudo echo "deb http://dist.crystal-lang.org/apt crystal main" > /etc/apt/sources.list.d/crystal.list
+$ sudo apt-get update
+$ sudo apt-get install crystal
+$ sudo apt-get install redis-server
+$ sudo apt-get install git gcc libgmp-dev libssl-dev libxml2-dev libyaml-dev curl
 
-1. The service must expose HTTP endpoints according to the definition below.
-2. The service must be self contained, you can use any language and technology you like, but it must be possible to set it up from a fresh install of Ubuntu Server 14.04, by following the steps you write in the README.
-3. It must be well tested, it must also be possible to run the entire test suit with a single command from the directory of your repository.
-4. The service must be versioned using git and submitted by making a Pull Request against this repository, git history **should** be meaningful.
-5. You don't have to use a datastore, you can have all data in memory, but we'd be more impressed if you do use one.
+# Clone repo
+$ cd ~
+$ git clone https://github.com/umurgdk/shorty.git
+$ git checkout crystal-implementation
+$ cd shorty
+$ crystal deps
+$ crystal build src/shorty.cr --release
 
-## Tips
-
-* Less is more, small is beautiful, you know the drill — stick to the requirements.
-* Don't try to make the microservice play well with others, the system is all yours.
-* No need to take care of domains, that's for a reverse proxy to handle.
-* Unit tests > Integration tests, but be careful with untested parts of the system.
-
-**Good Luck!** — not that you need any ;)
-
--------------------------------------------------------------------------
+# Run
+$ redis-server &
+$ ./shorty --repository redis # --redis-host localhost --redis-port 6379 &
+$ curl -H "Content-Type: application/json" -X POST -d '{"url":"http://google.com"}' http://localhost:3000/shorten -v
+```
 
 ## API Documentation
 
