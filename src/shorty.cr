@@ -51,13 +51,23 @@ post "/shorten" do |env|
   { "shortcode" => entry.code }.to_json
 end
 
+# to prevent concurrent visit requests
+visit_channel = Channel(Int32).new
+spawn { visit_channel.send 0 }
+
 get "/:shortcode" do |env|
+  repository = env.repository
+
   code = env.params.url["shortcode"]
+
+  visit_channel.receive
 
   if entry = repository.get(code)
     repository.put(entry.visit)
     env.redirect(entry.url)
     entry.url
+
+    spawn { visit_channel.send 0 }
   else
     next not_found(env)
   end
