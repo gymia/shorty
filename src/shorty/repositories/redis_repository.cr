@@ -1,5 +1,4 @@
 require "redis"
-require "json"
 
 require "./base_repository"
 
@@ -21,3 +20,4 @@ class Shorty::RedisRepository < Shorty::BaseRepository
     !@connection.get(code).nil?
   end
 end
+
