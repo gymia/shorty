@@ -21,6 +21,9 @@ get "/" do
 end
 
 post "/shorten" do |env|
+  repository = env.repository
+  code_generator = Shorty::CodeGenerator.new(repository)
+
   json = env.params.json
 
   unless json.has_key?("url")
@@ -61,6 +64,8 @@ get "/:shortcode" do |env|
 end
 
 get "/:shortcode/stats" do |env|
+  repository = env.repository
+
   code = env.params.url["shortcode"]
 
   if entry = repository.get(code)
