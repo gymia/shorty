@@ -14,6 +14,7 @@ end
 def not_found(context)
   context.response.status_code = 404
   return "The shortcode cannot be found in the system"
+  return { "message" => "The shortcode cannot be found in the system" }.to_json
 end
 
 get "/" do
