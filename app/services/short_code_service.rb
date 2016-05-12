@@ -26,7 +26,7 @@ class ShortCodeService
     response = Hash.new
     response[:startDate] = short_code.start_date
     response[:lastSeenDate] = short_code.last_seen_date unless short_code.redirect_count == 0
-    response[:redirect_count] = short_code.redirect_count
+    response[:redirectCount] = short_code.redirect_count
 
     response
   end

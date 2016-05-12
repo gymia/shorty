@@ -13,6 +13,8 @@ GEM
     bson (4.0.4)
     builder (3.2.2)
     diff-lcs (1.2.5)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
     i18n (0.7.0)
     json (1.8.3)
     minitest (5.8.4)
@@ -55,6 +57,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  factory_girl
   mongoid
   rack-test
   rspec
