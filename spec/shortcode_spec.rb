@@ -69,7 +69,8 @@ describe "Short code API" do
 
   describe 'get /:shortcode/stats' do
     it "should return the stats of a shortcode when the shortcode is found in the system" do
-      get '/google/stats'
+      create :short_code, shortcode: 'ashorty', redirect_count: 0
+      get '/ashorty/stats'
       expect(last_response).to be_ok
       expect(last_response.headers['Content-Type']).to eq('application/json')
       json = parse_json last_response

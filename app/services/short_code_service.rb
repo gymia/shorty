@@ -13,9 +13,9 @@ class ShortCodeService
     Repository.for(:shortcode).get(shortcode)
   end
 
-  def update(url)
-    update_counter url
-    update_last_seen_date url
+  def update(shortcode)
+    update_counter shortcode
+    update_last_seen_date shortcode
   end
 
   def get_stats(shortcode)
@@ -37,11 +37,11 @@ class ShortCodeService
     SecureRandom.hex(3)
   end
 
-  def update_counter(url)
-    Repository.for(:shortcode).set(:redirect_count, url.redirect_count + 1)
+  def update_counter(short_code_model)
+    Repository.for(:shortcode).set(short_code_model, :redirect_count, short_code_model.redirect_count + 1)
   end
 
-  def update_last_seen_date(url)
-    Repository.for(:shortcode).set(:last_seen_date, Time.now.utc.iso8601)
+  def update_last_seen_date(short_code_model)
+    Repository.for(:shortcode).set(short_code_model, :last_seen_date, Time.now.utc.iso8601)
   end
 end
