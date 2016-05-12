@@ -8,5 +8,5 @@ class App < Sinatra::Base
     register Sinatra::Config
     register Sinatra::ShortenPresenter
 
-    Repository::register(:shortcode, UrlRepository.new)
+    Repository::register(:shortcode, ShortCodeRepository.new)
 end

@@ -1,6 +1,6 @@
 require_relative './api_presenter'
 require_relative '../data/validator/validator'
-require_relative '../services/url_service'
+require_relative '../services/short_code_service'
 
 module Sinatra
   module ShortenPresenter
@@ -8,7 +8,7 @@ module Sinatra
     def self.registered(app)
       app.helpers ApiPresenter
       app.before do
-        @url_service = URLService.new
+        @short_code_service = ShortCodeService.new
       end
 
       app.post '/shorten' do
@@ -28,23 +28,25 @@ module Sinatra
           return respond_with_unprocessable_entity "Shortcode doesn't match regex"
         end
 
-        new_url = @url_service.create(url, shortcode)
+        new_url = @short_code_service.create(url, shortcode)
 
         respond_created new_url.shortcode
       end
 
       app.get '/:shortcode' do |shortcode|
-        url = @url_service.get(shortcode)
+        url = @short_code_service.get(shortcode)
 
         if url.nil?
           return respond_bad_request "The shortcode cannot be found in the system"
         end
 
+        @short_code_service.update(url)
+
         return respond_with_redirect url.url
       end
 
       app.get'/:shortcode/stats' do |shortcode|
-        Exception.new "Not implemented"
+        
       end
 
     end

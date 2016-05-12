@@ -1,11 +1,11 @@
 require_relative 'repository'
-require_relative '../../models/url'
+require_relative '../../models/short_code'
 require 'time'
 
 class ShortCodeRepository < Repository
 
   private def model_class
-    URL
+    ShortCode
   end
 
   def create(url, shortcode)

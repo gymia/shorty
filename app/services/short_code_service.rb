@@ -10,13 +10,12 @@ class ShortCodeService
   end
 
   def get(shortcode)
-    url = Repository.for(:shortcode).get(shortcode)
+    Repository.for(:shortcode).get(shortcode)
+  end
 
-    return nil if url.nil?
-
+  def update(url)
     update_counter url
     update_last_seen_date url
-    url
   end
 
   private
