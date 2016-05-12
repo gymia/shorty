@@ -11,6 +11,8 @@ module Sinatra
 
       # Database settings
       Mongoid.load!('config/mongoid.yml')
+
+      Mongoid.raise_not_found_error = false
     end
 
   end

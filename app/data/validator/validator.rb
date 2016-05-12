@@ -1,3 +1,5 @@
+require_relative '../repositories/repository'
+
 class Validator
 
   def self.blank?(value)
@@ -9,6 +11,6 @@ class Validator
   end
 
   def self.exists?(value)
-    
+    !Repository.for(:url).get(value).nil?
   end
 end
