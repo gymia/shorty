@@ -16,7 +16,6 @@ class ShortCodeService
 
     update_counter url
     update_last_seen_date url
-
     url
   end
 
@@ -27,10 +26,10 @@ class ShortCodeService
   end
 
   def update_counter(url)
-
+    Repository.for(:shortcode).set(:redirect_count, url.redirect_count + 1)
   end
 
   def update_last_seen_date(url)
-
+    Repository.for(:shortcode).set(:last_seen_date, Time.now.utc.iso8601)
   end
 end

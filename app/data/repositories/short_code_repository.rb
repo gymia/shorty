@@ -16,4 +16,8 @@ class ShortCodeRepository < Repository
     model_class.find_by(shortcode: shortcode)
   end
 
+  def set(column, value)
+    model_class.update(column => value)
+  end
+
 end
