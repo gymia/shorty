@@ -4,3 +4,9 @@ development:
       database: urlshortener
       hosts:
         - localhost:27017
+    test:
+      database: urlshortener-test
+      hosts:
+        - localhost:27017
+  options:
+    raise_not_found_error: false
