@@ -39,33 +39,33 @@ module Sinatra
           return respond_with_unprocessable_entity "Shortcode doesn't match regex"
         end
 
-        short_code = @short_code_service.create(url, shortcode)
+        short_code_model = @short_code_service.create(url, shortcode)
 
         respond_created short_code.shortcode
       end
 
       # Get the url of a shortcode
       app.get '/:shortcode' do |shortcode|
-        short_code = @short_code_service.get(shortcode)
+        short_code_model = @short_code_service.get(shortcode)
 
-        if short_code.nil?
+        if short_code_model.nil?
           return respond_not_found "The shortcode cannot be found in the system"
         end
 
-        @short_code_service.update(short_code)
+        @short_code_service.update(short_code_model)
 
-        return respond_with_found short_code.url
+        return respond_with_found short_code_model.url
       end
 
       # Get the stats of a shortcode
       app.get'/:shortcode/stats' do |shortcode|
-        short_code = @short_code_service.get_stats(shortcode)
+        short_code_response = @short_code_service.get_stats(shortcode)
 
-        if short_code.nil?
+        if short_code_response.nil?
           return respond_not_found "The shortcode cannot be found in the system"
         end
 
-        return respond_ok short_code
+        return respond_ok short_code_response
       end
 
     end
