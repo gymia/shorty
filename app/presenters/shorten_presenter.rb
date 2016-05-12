@@ -12,8 +12,14 @@ module Sinatra
         @short_code_service = ShortCodeService.new
       end
 
+      # Create a new shortened url
       app.post '/shorten' do
-        params = ::JSON.parse(request.body.read)
+        params = ::JSON.parse(request.body.read) if !request.body.read.empty?
+
+        if params.nil?
+          return respond_bad_request "Url is not provided"
+        end
+
         url = params['url']
         shortcode = params['shortcode']
 
@@ -34,6 +40,7 @@ module Sinatra
         respond_created short_code.shortcode
       end
 
+      # Get the url of a shortcode
       app.get '/:shortcode' do |shortcode|
         short_code = @short_code_service.get(shortcode)
 
@@ -46,6 +53,7 @@ module Sinatra
         return respond_with_found short_code.url
       end
 
+      # Get the stats of a shortcode
       app.get'/:shortcode/stats' do |shortcode|
         short_code = @short_code_service.get_stats(shortcode)
 
