@@ -1,6 +1,6 @@
 require 'mongoid'
 
-class URL
+class ShortCode
   include Mongoid::Document
 
   field :url, type: String

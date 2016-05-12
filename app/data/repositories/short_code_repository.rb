@@ -2,7 +2,7 @@ require_relative 'repository'
 require_relative '../../models/url'
 require 'time'
 
-class UrlRepository < Repository
+class ShortCodeRepository < Repository
 
   private def model_class
     URL

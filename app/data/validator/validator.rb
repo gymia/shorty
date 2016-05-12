@@ -11,6 +11,6 @@ class Validator
   end
 
   def self.exists?(value)
-    !Repository.for(:url).get(value).nil?
+    !Repository.for(:shortcode).get(value).nil?
   end
 end

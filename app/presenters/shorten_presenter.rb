@@ -8,13 +8,13 @@ module Sinatra
     def self.registered(app)
       app.helpers ApiPresenter
       app.before do
-        @params = ::JSON.parse(request.body.read)
         @url_service = URLService.new
       end
 
       app.post '/shorten' do
-        url = @params['url']
-        shortcode = @params['shortcode']
+        params = ::JSON.parse(request.body.read)
+        url = params['url']
+        shortcode = params['shortcode']
 
         if Validator.blank?(url)
           return respond_bad_request "URL is not provided."
@@ -28,13 +28,19 @@ module Sinatra
           return respond_with_unprocessable_entity "Shortcode doesn't match regex"
         end
 
-        short_url = @url_service.create(url, shortcode)
+        new_url = @url_service.create(url, shortcode)
 
-        respond_created short_url.shortcode
+        respond_created new_url.shortcode
       end
 
       app.get '/:shortcode' do |shortcode|
-        Exception.new "Not implemented"
+        url = @url_service.get(shortcode)
+
+        if url.nil?
+          return respond_bad_request "The shortcode cannot be found in the system"
+        end
+
+        return respond_with_redirect url.url
       end
 
       app.get'/:shortcode/stats' do |shortcode|

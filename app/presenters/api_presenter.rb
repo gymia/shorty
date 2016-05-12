@@ -8,8 +8,18 @@ module Sinatra
       json :shortcode => shortcode
     end
 
+    def respond_with_redirect(location)
+      status 302
+      headers "Location" => location
+    end
+
     def respond_bad_request(message)
       status 400
+      json :message => message
+    end
+
+    def respond_not_found(message)
+      status 404
       json :message => message
     end
 
