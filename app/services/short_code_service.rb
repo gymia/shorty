@@ -19,14 +19,14 @@ class ShortCodeService
   end
 
   def get_stats(shortcode)
-    short_code = get shortcode
+    short_code_model = get shortcode
 
-    return nil if short_code.nil?
+    return nil if short_code_model.nil?
 
     response = Hash.new
-    response[:startDate] = short_code.start_date
-    response[:lastSeenDate] = short_code.last_seen_date unless short_code.redirect_count == 0
-    response[:redirectCount] = short_code.redirect_count
+    response[:startDate] = short_code_model.start_date
+    response[:lastSeenDate] = short_code_model.last_seen_date unless short_code_model.redirect_count == 0
+    response[:redirectCount] = short_code_model.redirect_count
 
     response
   end
