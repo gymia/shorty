@@ -3,6 +3,11 @@ require 'sinatra/json'
 module Sinatra
   module ApiPresenter
 
+    def respond_ok(response)
+      status 200
+      json response
+    end
+
     def respond_created(shortcode)
       status 201
       json :shortcode => shortcode

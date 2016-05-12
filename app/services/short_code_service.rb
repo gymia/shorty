@@ -18,6 +18,19 @@ class ShortCodeService
     update_last_seen_date url
   end
 
+  def get_stats(shortcode)
+    short_code = get shortcode
+
+    return nil if short_code.nil?
+
+    response = Hash.new
+    response[:startDate] = short_code.start_date
+    response[:lastSeenDate] = short_code.last_seen_date unless short_code.redirect_count == 0
+    response[:redirect_count] = short_code.redirect_count
+
+    response
+  end
+
   private
 
   def generate_shortcode

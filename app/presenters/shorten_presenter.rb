@@ -7,6 +7,7 @@ module Sinatra
 
     def self.registered(app)
       app.helpers ApiPresenter
+      
       app.before do
         @short_code_service = ShortCodeService.new
       end
@@ -28,25 +29,31 @@ module Sinatra
           return respond_with_unprocessable_entity "Shortcode doesn't match regex"
         end
 
-        new_url = @short_code_service.create(url, shortcode)
+        short_code = @short_code_service.create(url, shortcode)
 
-        respond_created new_url.shortcode
+        respond_created short_code.shortcode
       end
 
       app.get '/:shortcode' do |shortcode|
-        url = @short_code_service.get(shortcode)
+        short_code = @short_code_service.get(shortcode)
 
-        if url.nil?
-          return respond_bad_request "The shortcode cannot be found in the system"
+        if short_code.nil?
+          return respond_not_found "The shortcode cannot be found in the system"
         end
 
-        @short_code_service.update(url)
+        @short_code_service.update(short_code)
 
-        return respond_with_found url.url
+        return respond_with_found short_code.url
       end
 
       app.get'/:shortcode/stats' do |shortcode|
+        short_code = @short_code_service.get_stats(shortcode)
 
+        if short_code.nil?
+          return respond_not_found "The shortcode cannot be found in the system"
+        end
+
+        return respond_ok short_code
       end
 
     end
