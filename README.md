@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# urlshortener
-=======
 Shorty Challenge
 ================
 
@@ -136,4 +133,3 @@ Error | Description
 404   | The ```shortcode``` cannot be found in the system
 
 
->>>>>>> 46e6263de0411e6ab90233b22a3c4ad76a998498
