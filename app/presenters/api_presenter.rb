@@ -8,7 +8,7 @@ module Sinatra
       json :shortcode => shortcode
     end
 
-    def respond_with_redirect(location)
+    def respond_with_found(location)
       status 302
       headers "Location" => location
     end

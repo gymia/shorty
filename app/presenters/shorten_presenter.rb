@@ -42,11 +42,11 @@ module Sinatra
 
         @short_code_service.update(url)
 
-        return respond_with_redirect url.url
+        return respond_with_found url.url
       end
 
       app.get'/:shortcode/stats' do |shortcode|
-        
+
       end
 
     end
