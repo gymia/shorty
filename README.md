@@ -11,9 +11,19 @@ The challenge, if you choose to accept it, is to create a micro service to short
 
 Ruby & MongoDB
 ```bash
+
+#Ruby
 $ sudo apt-get update
-$ sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
-$ sudo apt-get install ruby2.0 git bundler
+$ sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev libgdbm-dev libncurses5-dev automake libtool bison git
+$ command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+$ curl -L https://get.rvm.io | bash -s stable
+$ source ~/.rvm/scripts/rvm
+$ rvm install 2.3.0
+$ rvm use 2.3.0 --default
+$ ruby -v
+$ gem install bundler
+
+# Mongo
 $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 $ echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 $ sudo apt-get update
@@ -23,13 +33,13 @@ $ sudo apt-get install -y mongodb-org
 MongoDB should start automatically. If not, run the following command:
 
 ```bash
-$ sudo service mongodb restart
+$ sudo service mongod restart
 ```
 
 Cloning the repo and starting the server
 
 ```bash
-$ git clone git@github.com:frankieleef/shorty.git
+$ git clone https://github.com/frankieleef/shorty.git
 $ cd shorty
 $ bundle install
 $ rackup # Or if you want to run it as a deamon, run rackup --daemonize
