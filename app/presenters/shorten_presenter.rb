@@ -1,6 +1,5 @@
 require_relative './api_presenter'
-require "sinatra/base"
-require "sinatra/json"
+require_relative '../data/validator/validator'
 
 module Sinatra
   module ShortenPresenter
@@ -15,11 +14,17 @@ module Sinatra
         url = @params['url']
         shortcode = @params['shortcode']
 
-        if @params["url"].nil? || @params["url"].empty?
+        if Validator.blank?(url)
           return respond_bad_request "URL is not provided."
         end
 
-        
+        if Validator.exists?(shortcode)
+          return respond_with_conflict "Shortcode already exists"
+        end
+
+        if !Validator.match?(shortcode)
+          return respond_with_unprocessable_entity "Shortcode doesn't match regex"
+        end
 
         respond_created "URL created"
       end
