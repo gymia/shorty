@@ -1,4 +1,4 @@
-require_relative '../repositories/repository'
+require './app/data/repositories/repository'
 
 class Validator
 

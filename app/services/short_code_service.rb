@@ -1,5 +1,5 @@
-require_relative '../data/validator/validator'
-require_relative '../data/repositories/repository'
+require './app/data/validator/validator'
+require './app/data/repositories/repository'
 
 class ShortCodeService
 

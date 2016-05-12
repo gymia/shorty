@@ -1,5 +1,5 @@
-require_relative 'repository'
-require_relative '../../models/short_code'
+require './app/data/repositories/repository'
+require './app/models/short_code'
 require 'time'
 
 class ShortCodeRepository < Repository

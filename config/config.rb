@@ -1,4 +1,6 @@
 require 'mongoid'
+require "rubygems"
+require "bundler"
 
 module Sinatra
   module Config
@@ -13,6 +15,8 @@ module Sinatra
       Mongoid.load!('config/mongoid.yml')
 
       Mongoid.raise_not_found_error = false
+
+      Bundler.require(:default)
     end
 
   end

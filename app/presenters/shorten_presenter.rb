@@ -1,13 +1,13 @@
-require_relative './api_presenter'
-require_relative '../data/validator/validator'
-require_relative '../services/short_code_service'
+require './app/presenters/api_presenter'
+require './app/data/validator/validator'
+require './app/services/short_code_service'
 
 module Sinatra
   module ShortenPresenter
 
     def self.registered(app)
       app.helpers ApiPresenter
-      
+
       app.before do
         @short_code_service = ShortCodeService.new
       end
