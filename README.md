@@ -7,22 +7,40 @@ The trendy modern question for developer inteviews seems to be, "how to create a
 
 The challenge, if you choose to accept it, is to create a micro service to shorten urls, in the style that TinyURL and bit.ly made popular.
 
-## Rules
+## Build on Ubuntu
 
-1. The service must expose HTTP endpoints according to the definition below.
-2. The service must be self contained, you can use any language and technology you like, but it must be possible to set it up from a fresh install of Ubuntu Server 14.04, by following the steps you write in the README.
-3. It must be well tested, it must also be possible to run the entire test suit with a single command from the directory of your repository.
-4. The service must be versioned using git and submitted by making a Pull Request against this repository, git history **should** be meaningful.
-5. You don't have to use a datastore, you can have all data in memory, but we'd be more impressed if you do use one.
+Ruby & MongoDB
+```bash
+$ sudo apt-get update
+$ sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+$ sudo apt-get install ruby2.0 git bundler
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+$ echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+$ sudo apt-get update
+$ sudo apt-get install -y mongodb-org
+```
 
-## Tips
+MongoDB should start automatically. If not, run the following command:
 
-* Less is more, small is beautiful, you know the drill — stick to the requirements.
-* Don't try to make the microservice play well with others, the system is all yours.
-* No need to take care of domains, that's for a reverse proxy to handle.
-* Unit tests > Integration tests, but be careful with untested parts of the system.
+```bash
+$ sudo service mongodb restart
+```
 
-**Good Luck!** — not that you need any ;)
+Cloning the repo and starting the server
+
+```bash
+$ git clone git@github.com:frankieleef/shorty.git
+$ cd shorty
+$ bundle install
+$ rackup # Or if you want to run it as a deamon, run rackup --daemonize
+```
+The server should start on http://localhost:3000
+
+## Testing
+
+```bash
+$ rspec
+```
 
 -------------------------------------------------------------------------
 
@@ -131,5 +149,3 @@ lastSeenDate      | date of the last time the a redirect was issued, not present
 Error | Description
 ----- | ------------
 404   | The ```shortcode``` cannot be found in the system
-
-
