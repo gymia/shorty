@@ -14,11 +14,15 @@ module Sinatra
 
       # Create a new shortened url
       app.post '/shorten' do
-        params = ::JSON.parse(request.body.read) if !request.body.read.empty?
 
-        if params.nil?
-          return respond_bad_request "Url is not provided"
+        body = request.body.read
+
+        if body.empty?
+          return respond_bad_request "URL is not provided."
         end
+
+        params = {}
+        params = ::JSON.parse(body)
 
         url = params['url']
         shortcode = params['shortcode']

@@ -28,6 +28,13 @@ describe "Short code API" do
       json = parse_json last_response
       expect(json.keys).to contain_exactly('message')
       expect(json['message']).to eq('URL is not provided.')
+
+      post '/shorten'
+      expect(last_response).to be_bad_request
+      expect(last_response.header['Content-Type']).to eq('application/json')
+      json = parse_json last_response
+      expect(json.keys).to contain_exactly('message')
+      expect(json['message']).to eq('URL is not provided.')
     end
 
     it "should return a conflict when the shortcode is provided and already exists" do
