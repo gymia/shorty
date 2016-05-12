@@ -7,7 +7,7 @@ class Validator
   end
 
   def self.match?(value)
-    /^[0-9a-zA-Z_]{4,}$/.match value
+    !/^[0-9a-zA-Z_]{4,}$/.match(value).nil?
   end
 
   def self.exists?(value)
