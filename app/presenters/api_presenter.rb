@@ -11,5 +11,15 @@ module Sinatra
       json :message => message
     end
 
+    def respond_with_conflict(message)
+      status 409
+      json :message => message
+    end
+
+    def respond_with_unprocessable_entity(message)
+      status 422
+      json :message => message
+    end
+
   end
 end
