@@ -14,7 +14,7 @@ Ruby & MongoDB
 
 #Ruby
 $ sudo apt-get update
-$ sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev libgdbm-dev libncurses5-dev automake libtool bison git
+$ sudo apt-get install git-core curl git
 $ command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 $ curl -L https://get.rvm.io | bash -s stable
 $ source ~/.rvm/scripts/rvm
