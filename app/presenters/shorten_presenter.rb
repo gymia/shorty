@@ -41,7 +41,7 @@ module Sinatra
 
         short_code_model = @short_code_service.create(url, shortcode)
 
-        respond_created short_code.shortcode
+        respond_created short_code_model.shortcode
       end
 
       # Get the url of a shortcode
