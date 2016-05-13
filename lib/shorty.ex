@@ -13,8 +13,9 @@ defmodule Shorty do
     # Define workers and child supervisors to be supervised
     children = [worker(Repo, [])]
 
-    if Application.get_env(:shorty, :serve_endpoints) do
-      children = children ++ [Cowboy.child_spec(:http, Router, [], port: 4000)]
+    if Application.get_env(:shorty, :server) do
+      port     = Application.get_env(:shorty, :port)
+      children = children ++ [Cowboy.child_spec(:http, Router, [], port: port)]
     end
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

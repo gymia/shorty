@@ -74,7 +74,7 @@ defmodule ShortyRouterTest do
       assert_content_type conn
       assert conn.state == :sent
       assert conn.status == 400
-      assert conn.resp_body == "{\"error\":\"url not present\"}"
+      assert conn.resp_body == "{\"error\":\"\\\"url\\\" not present.\"}"
     end
   end
 
@@ -99,7 +99,7 @@ defmodule ShortyRouterTest do
       assert_content_type conn
       assert conn.state == :sent
       assert conn.status == 404
-      assert conn.resp_body == "{\"error\":\"shortcode not found\"}"
+      assert conn.resp_body == "{\"error\":\"The \\\"shortcode\\\" cannot be found in the system.\"}"
     end
   end
 
@@ -125,7 +125,7 @@ defmodule ShortyRouterTest do
       assert_content_type conn
       assert conn.state == :sent
       assert conn.status == 404
-      assert conn.resp_body == "{\"error\":\"shortcode not found\"}"
+      assert conn.resp_body == "{\"error\":\"The \\\"shortcode\\\" cannot be found in the system.\"}"
     end
   end
 

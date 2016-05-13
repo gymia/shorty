@@ -7,7 +7,7 @@ defmodule ShortyRepoTest do
   alias Shorty.Entry
 
   @valid_code "XXXXXX"
-  @invalid_code "******"
+  @invalid_code "*******"
   @url "http://www.google.com"
 
   setup do
@@ -20,7 +20,7 @@ defmodule ShortyRepoTest do
 
   test "put without a shortcode" do
     assert {:ok, shortcode} = Repo.put(@url)
-    assert :ok == Entry.validate_shortcode(shortcode)
+    assert Entry.validate_shortcode(shortcode)
   end
 
   test "put without a shortcode (with a shortcode collision)" do
@@ -31,7 +31,8 @@ defmodule ShortyRepoTest do
           0 -> "YYYYYY"
           1 -> @valid_code
         end
-      end] do
+      end
+    ] do
 
       assert "YYYYYY" == Repo.generate_unique_shortcode(%{})
       assert @valid_code == Repo.generate_unique_shortcode(%{"YYYYYY" => true})

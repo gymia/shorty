@@ -26,19 +26,32 @@ The challenge, if you choose to accept it, is to create a micro service to short
 
 ## Installation Steps for Ubuntu 14.04
 
+There's a Dockerfile based on Ubuntu 14.04 in the repository which defaults to production environment. The environment can be changed by overriding MIX_ENV environment variable and used as testing or development environment. For preparing a normal Ubuntu 14.04 installation please follow the steps below.
+
 1. `wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb`
 2. `sudo apt-get update`
 3. `sudo apt-get install esl-erlang elixir`
 4. cd to the project directory
-5. `mix deps.get`
+5. `mix local.hex --force`
+6. `mix local.rebar --force`
+7. `mix deps.get`
 
-## For Running Tests
+### For Running Tests
 
-*. `mix test`
+* `mix test`
 
-## For Running the Server
+### For Running the Server in Development Mode
 
-*. `mix shorty.server`
+* `mix shorty.server`
+
+### For Running the Server with Interactive Console in Development Mode
+
+* `iex -S mix shorty.server`
+
+### For Running the Server in Production Mode
+
+* `MIX_ENV=prod mix compile`
+* `MIX_ENV=prod mix shorty.server`
 
 -------------------------------------------------------------------------
 

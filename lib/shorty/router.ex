@@ -7,17 +7,21 @@ defmodule Shorty.Router do
     plug Plug.Logger, log: :debug
   end
 
+  if Mix.env == :prod do
+    plug Plug.Logger, log: :info
+  end
+
   alias Shorty.Repo
 
-  plug Plug.Parsers, parsers: [:urlencoded, :json], json_decoder: Poison
+  plug Plug.Parsers, parsers: [:json], json_decoder: Poison
   plug :match
   plug :dispatch
 
-  @error_map %{
-    url_not_present:          400,
-    shortcode_already_exists: 409,
-    invalid_shortcode:        422,
-    shortcode_not_found:      404
+  @errors %{
+    url_not_present:          {400, "\"url\" not present."},
+    shortcode_already_exists: {409, "The the desired shortcode is already in use (Shortcodes are case-sensitive)."},
+    invalid_shortcode:        {422, "The shortcode fails to meet the following regexp: \"^[0-9a-zA-Z_]{4,}$\""},
+    shortcode_not_found:      {404, "The \"shortcode\" cannot be found in the system."}
   }
 
   get "/" do
@@ -71,12 +75,11 @@ defmodule Shorty.Router do
   end
 
   defp send_error(conn, error) do
-    code    = @error_map[error] || 500
-    message = String.replace(to_string(error), "_", " ")
+    {code, message} = @errors[error]
 
     conn
     |> set_content_type
-    |> send_resp(code, render_message(message, "error"))
+    |> send_resp(code || 500, render_message(message || to_string(error), "error"))
   end
 
   defp format_timestamp(timestamp) do

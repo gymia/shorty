@@ -12,7 +12,7 @@ defmodule Mix.Tasks.Shorty.Server do
   The `--no-halt` flag is automatically added.
   """
   def run(args) do
-    Application.put_env(:shorty, :serve_endpoints, true, persistent: true)
+    Application.put_env(:shorty, :server, true, persistent: true)
     Mix.Task.run "run", run_args() ++ args
   end
 

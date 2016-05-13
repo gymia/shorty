@@ -8,18 +8,11 @@ use Mix.Config
 # if you want to provide default values for your application for
 # 3rd-party users, it should be done in your "mix.exs" file.
 
-# You can configure for your application as:
-#
-#     config :shorty, key: :value
-#
-# And access this configuration in your application as:
-#
-#     Application.get_env(:shorty, :key)
-#
-# Or configure a 3rd-party app:
-#
-#     config :logger, level: :info
-#
+{ port, _ } = Integer.parse(System.get_env("PORT") || "4000")
+config :shorty, port: port
+
+config :logger, :console, format:   "$time $metadata[$level] $message\n",
+                          metadata: [:request_id]
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
@@ -29,4 +22,6 @@ use Mix.Config
 #
 # import_config "#{Mix.env}.exs"
 
-config :mix_test_watch, tasks: ["test", "coveralls", "credo --strict"]
+if (Mix.env == :dev) || (Mix.env == :test) do
+  config :mix_test_watch, tasks: ["test", "coveralls", "credo --strict"]
+end
