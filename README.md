@@ -24,6 +24,22 @@ The challenge, if you choose to accept it, is to create a micro service to short
 
 **Good Luck!** — not that you need any ;)
 
+## Installation Steps for Ubuntu 14.04
+
+1. `wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb`
+2. `sudo apt-get update`
+3. `sudo apt-get install esl-erlang elixir`
+4. cd to the project directory
+5. `mix deps.get`
+
+## For Running Tests
+
+*. `mix test`
+
+## For Running the Server
+
+*. `mix shorty.server`
+
 -------------------------------------------------------------------------
 
 ## API Documentation

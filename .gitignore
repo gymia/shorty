@@ -1,0 +1,17 @@
+# Ignore datafiles.
+data/*
+
+# Ignore dependencies.
+deps
+
+# Ignore build files.
+_build
+
+# Ignore all logfiles and tempfiles.
+log/*
+
+# spec artifacts
+cover/*
+
+# mac os artifacts
+.DS_Store
