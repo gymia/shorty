@@ -39,7 +39,7 @@ Cloning the repo and starting the server
     $ bundle install
     $ rackup # Or if you want to run it as a deamon, run rackup --daemonize
 
-The server should start on http://localhost:3000
+The server should start on ```http://localhost:3000```
 
 ## Testing
 
