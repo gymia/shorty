@@ -10,7 +10,9 @@ The challenge, if you choose to accept it, is to create a micro service to short
 ## Build on Ubuntu
 
 Ruby & MongoDB
+```bash
 
+#Ruby
 $ sudo apt-get update
 $ sudo apt-get install git-core curl git
 $ command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
@@ -21,14 +23,18 @@ $ rvm use 2.3.0 --default
 $ ruby -v
 $ gem install bundler
 
+# Mongo
 $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 $ echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 $ sudo apt-get update
 $ sudo apt-get install -y mongodb-org
+```
 
 MongoDB should start automatically. If not, run the following command:
 
+```bash
 $ sudo service mongod restart
+```
 
 Cloning the repo and starting the server
 
