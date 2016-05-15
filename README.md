@@ -26,7 +26,7 @@ The challenge, if you choose to accept it, is to create a micro service to short
 
 ## Installation Steps for Ubuntu 14.04
 
-There's a Dockerfile based on Ubuntu 14.04 in the repository which defaults to production environment. The environment can be changed by overriding MIX_ENV environment variable and used as testing or development environment. For preparing a normal Ubuntu 14.04 installation please follow the steps below.
+There's a Dockerfile based on Ubuntu 14.04 in the repository which defaults to production environment. The environment can be changed by overriding MIX_ENV environment variable and used as testing or development environment. For preparing a normal Ubuntu 14.04 installation please follow the steps below. HTTP server runs at port 4000 by default and the port can be changed with PORT environment variable.
 
 1. `wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb`
 2. `sudo apt-get update`
