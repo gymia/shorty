@@ -36,9 +36,11 @@ class ShortCodeService
   def generate_shortcode
     shortcode = SecureRandom.urlsafe_base64(4)
 
-    return shortcode unless shortcode.include?("-")
+    if Validator.exists?(shortcode = shortcode.gsub("-", SecureRandom.hex(0.5)))
+      generate_shortcode
+    end
 
-    shortcode.gsub("-", SecureRandom.hex(0.5))
+    shortcode
   end
 
   def update_counter(short_code_model)
