@@ -34,7 +34,11 @@ class ShortCodeService
   private
 
   def generate_shortcode
-    SecureRandom.hex(3)
+    shortcode = SecureRandom.urlsafe_base64(4)
+
+    return shortcode unless shortcode.include?("-")
+
+    shortcode.gsub("-", SecureRandom.hex(0.5))
   end
 
   def update_counter(short_code_model)

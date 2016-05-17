@@ -3,6 +3,7 @@ require_relative 'factories/short_code'
 
 describe ShortCodeService do
   let(:shortcode) { ShortCodeService.new }
+
   describe '.create' do
     it "should create a shortcode in the database with a random shortcode if none provided" do
       short_code = shortcode.create "www.google.com", nil
@@ -54,4 +55,5 @@ describe ShortCodeService do
       expect(response[:redirectCount]).to eq(2)
     end
   end
+  
 end
