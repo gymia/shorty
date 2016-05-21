@@ -25,4 +25,13 @@ describe TinyUrl, type: :model do
       expect(subject.shortcode).to be_present
     end
   end
+
+  describe '#visit!' do
+    before { subject.save! }
+
+    it 'updates attributes(increment redirect_count, update last_seen_at) when a user visits a tiny url' do
+      expect { subject.visit! }.to change { subject.last_seen_at }
+      expect { subject.visit! }.to change { subject.redirect_count }.by(1)
+    end
+  end
 end

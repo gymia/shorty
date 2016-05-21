@@ -83,4 +83,41 @@ RSpec.describe TinyUrlsController, type: :api do
       end
     end
   end
+
+  describe '#show' do
+    context 'when shortcode found' do
+      let(:tiny_url) { FactoryGirl.create(:tiny_url) }
+      before { get tiny_url.shortcode }
+
+      it 'returns 302 code' do
+        expect(last_response.status).to eq(302)
+      end
+
+      it 'sets location header' do
+        expect(last_response.headers['Location']).to eq(tiny_url.url)
+      end
+
+      it 'updates visiting attributes' do
+        old_last_seen_at = tiny_url.last_seen_at
+        old_count = tiny_url.redirect_count
+        tiny_url.reload
+        expect(tiny_url.last_seen_at).to_not eq(old_last_seen_at)
+        expect(tiny_url.redirect_count).to eq(old_count + 1)
+      end
+    end
+
+    context 'when shortcode does not found' do
+      before { get '/fake-short-code' }
+
+      it 'returns 404 code' do
+        expect(last_response.status).to eq(404)
+      end
+
+      it 'returns error message' do
+        expect(last_response.body).to eq({
+          error: "The 'fake-short-code' cannot be found in the system"
+        }.to_json)
+      end
+    end
+  end
 end
