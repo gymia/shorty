@@ -1,35 +1,47 @@
-Shorty Challenge
-================
+# SHORTY_API
 
-The trendy modern question for developer inteviews seems to be, "how to create an url shortner". Not wanting to fall too far from the cool kids, we have a challenge for you!
+This is microservice which is used to create shorten urls, in the style that TinyURL and bit.ly
 
-## The Challenge
+### Prerequisite
 
-The challenge, if you choose to accept it, is to create a micro service to shorten urls, in the style that TinyURL and bit.ly made popular.
+1. Ubuntu Machine
+2. Ruby > 2.2.4
+3. MySQL(Ver 14.14 Distrib 5.6.24)
+4. Git
+5. Bundler gem
 
-## Rules
+You can follow https://gorails.com/setup/ubuntu/14.04 link to setup Ruby, MySQL & Git on Ubuntu server. For installing `bundler` gem, you just need to execute `gem install bundler` but make sure you have successfully installed `ruby` on your machine.
 
-1. The service must expose HTTP endpoints according to the definition below.
-2. The service must be self contained, you can use any language and technology you like, but it must be possible to set it up from a fresh install of Ubuntu Server 14.04, by following the steps you write in the README.
-3. It must be well tested, it must also be possible to run the entire test suit with a single command from the directory of your repository.
-4. The service must be versioned using git and submitted by making a Pull Request against this repository, git history **should** be meaningful.
-5. You don't have to use a datastore, you can have all data in memory, but we'd be more impressed if you do use one.
+### Steps to setup
 
-## Tips
+1. Clone the repo using `git clone git@github.com:kuldeepaggarwal/shorty_api.git`
+2. Change the directory to cloned repo.
 
-* Less is more, small is beautiful, you know the drill — stick to the requirements.
-* Don't try to make the microservice play well with others, the system is all yours.
-* No need to take care of domains, that's for a reverse proxy to handle.
-* Unit tests > Integration tests, but be careful with untested parts of the system.
+```shell
+$ cd shorty_api
+```
+3. Run `bundle install`
+4. Set SHELL Variables(`SHORTY_API_DATABASE_USERNAME`, `SHORTY_API_DATABASE_PASSWORD`) using `export` command. Please read about more [here](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps). These are 2 environment variables that will be used by the application to make connection to MySQL.
 
-**Good Luck!** — not that you need any ;)
+**NOTE** Make sure mysql user must have Database creation rights.
 
--------------------------------------------------------------------------
+```sh
+$ export SHORTY_API_DATABASE_PASSWORD=root
+$ export SHORTY_API_DATABASE_USERNAME=root
+```
+5. Setup database using `rake db:create db:migrate` command
+6. Run Rails Server using `bundle exec rails s` command. It will start rails server on http://localhost:3000.
+
+### Testing
+
+```shell
+$ cd [path-to-project]
+$ bundle install
+$ RAILS_ENV=test bundle exec rake db:create db:migrate
+$ RAILS_ENV=test bundle exec rspec spec
+```
 
 ## API Documentation
-
-**All responses must be encoded in JSON and have the appropriate Content-Type header**
-
 
 ### POST /shorten
 
@@ -131,5 +143,3 @@ lastSeenDate      | date of the last time the a redirect was issued, not present
 Error | Description
 ----- | ------------
 404   | The ```shortcode``` cannot be found in the system
-
-
