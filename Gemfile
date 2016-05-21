@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails',                   '5.0.0.rc1'
 gem 'mysql2',                  '0.4.4'
 gem 'puma',                    '~> 3.4.0'
+gem 'faker',                   '~> 1.6.1', require: false
 
 group :development, :test do
   gem 'byebug',                '~> 9.0.4', platform: :mri

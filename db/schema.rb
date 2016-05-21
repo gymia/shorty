@@ -11,6 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160521075428) do
+
+  create_table "tiny_urls", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "url"
+    t.integer  "redirect_count", default: 0
+    t.datetime "last_seen_at"
+    t.string   "shortcode",                  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["shortcode"], name: "index_tiny_urls_on_shortcode", using: :btree
+  end
 
 end
