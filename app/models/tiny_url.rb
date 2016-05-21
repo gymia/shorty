@@ -1,8 +1,8 @@
 class TinyUrl < ApplicationRecord
   include Slugifier
 
-  SHORTCODE_REGEX_STRING = '[0-9a-zA-Z_]{6}'
-  SHORTCODE_REGEX        = /\A#{SHORTCODE_REGEX_STRING}\Z/
+  SHORTCODE_REGEX        = /\A[0-9a-zA-Z_]{6}\Z/
+  SHORTCODE_REGEX_STRING = SHORTCODE_REGEX.source.sub('\\A', '^').sub('\\Z', '$')
 
   validates :url, presence: true
   validates :shortcode,
