@@ -1,5 +1,5 @@
 class TinyUrlsController < ApplicationController
-  before_action :load_resource, only: [:show]
+  before_action :load_resource, only: [:show, :statistics]
 
   def create
     tiny_url = TinyUrl.new(resource_params)
@@ -21,6 +21,10 @@ class TinyUrlsController < ApplicationController
   def show
     render location: @tiny_url.url, status: 302
     @tiny_url.visit!
+  end
+
+  def statistics
+    render json: @tiny_url, serializer: TinyUrlStatsSerializer
   end
 
   private
