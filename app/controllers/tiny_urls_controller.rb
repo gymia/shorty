@@ -1,4 +1,6 @@
 class TinyUrlsController < ApplicationController
+  before_action :load_resource, only: [:show]
+
   def create
     tiny_url = TinyUrl.new(resource_params)
     if tiny_url.save
@@ -16,8 +18,22 @@ class TinyUrlsController < ApplicationController
     end
   end
 
+  def show
+    render location: @tiny_url.url, status: 302
+    @tiny_url.visit!
+  end
+
   private
     def resource_params
       params.permit(:shortcode, :url)
+    end
+
+    def load_resource
+      @tiny_url = TinyUrl.find_by(shortcode: params[:shortcode])
+      unless @tiny_url
+        render json: {
+          error: "The '#{ params[:shortcode] }' cannot be found in the system"
+        }, status: :not_found
+      end
     end
 end

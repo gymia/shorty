@@ -11,4 +11,8 @@ class TinyUrl < ApplicationRecord
     allow_blank: true
 
   slugify :shortcode, with: SHORTCODE_REGEX_STRING, unless: :shortcode
+
+  def visit!
+    increment(:redirect_count).update_attributes!(last_seen_at: Time.current)
+  end
 end
