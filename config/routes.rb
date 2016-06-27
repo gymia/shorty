@@ -53,4 +53,8 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  post '/shorten', to: 'shorty#shorten'
+  get  '/shortcode', to: 'shorty#shortcode'
+  get  '/:shortcode/stats', to: 'shorty#stats'
 end
