@@ -24,11 +24,16 @@ class ShortyController < ApplicationController
   end
 
   def stats
-    render :json => {
-        "startDate" => "2012-04-23T18:25:43.511Z",
-        "lastSeenDate" => "2012-04-23T18:25:43.511Z",
-        "redirectCount" => 1
-    }
+    shortcode = Shortcode.find_by_shortcode(params[:shortcode])
+    if shortcode
+      render :json => {
+          "startDate" => shortcode.created_at,
+          "lastSeenDate" => shortcode.updated_at,
+          "redirectCount" => shortcode.hits
+      }
+    else
+      render json: {error: "The shortcode cannot be found in the system", status: 404}
+    end
   end
 
   private
