@@ -9,9 +9,9 @@ RSpec.describe Shortcode, type: :model do
     it { is_expected.to validate_uniqueness_of(:shortcode) }
     it { expect(shortcode.shortcode).to match(/^[0-9a-zA-Z_]{4,}$/) }
     it { expect(shortcode_without_shortcode.shortcode).to match(/^[0-9a-zA-Z_]{6}$/) }
-    it "raises an error if shortcode does not meet the regex" do
+    it "raises an error if shortcode does not match the regex" do
       shortcode_with_invalid_shortcode.valid?
-      shortcode_with_invalid_shortcode.errors.full_messages.should include("The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$.")
+      expect(shortcode_with_invalid_shortcode.errors.full_messages).to include("The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$.")
     end
   end
 end
