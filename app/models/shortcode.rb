@@ -16,4 +16,8 @@ class Shortcode < ActiveRecord::Base
     self.shortcode = self.generate_random_shortcode unless self.shortcode
   end
 
+  def visited
+    self.increment!(:hits)
+  end
+
 end

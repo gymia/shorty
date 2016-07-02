@@ -16,6 +16,7 @@ class ShortyController < ApplicationController
   def redirect
     shortcode = Shortcode.find_by_shortcode(params[:shortcode])
     if shortcode
+      shortcode.visited
       redirect_to shortcode.url, status: 301
     else
       render json: {error: "The shortcode cannot be found in the system", status: 404}
