@@ -5,16 +5,21 @@ class ShortyController < ApplicationController
     @shortcode = Shortcode.create(shortcode_params)
     if @shortcode.errors.any?
       if @shortcode.errors.count == 1 && @shortcode.errors[:shortcode].first == "has already been taken"
-        render :json => { error: @shortcode.errors.full_messages.to_sentence}, :status => :conflict and return
+        render :json => { error: @shortcode.errors.full_messages.to_sentence}, status: :conflict and return
       else
-        render :json => { error: @shortcode.errors.full_messages.to_sentence}, :status => :unprocessable_entity and return
+        render :json => { error: @shortcode.errors.full_messages.to_sentence}, status: :unprocessable_entity and return
       end
     end
     render :json => { "shortcode" => @shortcode.shortcode }
   end
 
-  def shortcode
-    render :json => { "shortcode" => "example" }
+  def redirect
+    shortcode = Shortcode.find_by_shortcode(params[:shortcode])
+    if shortcode
+      redirect_to shortcode.url, status: 301
+    else
+      render json: {error: "The shortcode cannot be found in the system", status: 404}
+    end
   end
 
   def stats

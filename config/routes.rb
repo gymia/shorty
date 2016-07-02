@@ -55,6 +55,6 @@ Rails.application.routes.draw do
   #   end
 
   post '/shorten', to: 'shorty#create'
-  get  '/shortcode', to: 'shorty#shortcode'
+  get  '/:shortcode', to: 'shorty#redirect'
   get  '/:shortcode/stats', to: 'shorty#stats'
 end
