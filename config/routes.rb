@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  post '/shorten', to: 'shorty#shorten'
+  post '/shorten', to: 'shorty#create'
   get  '/shortcode', to: 'shorty#shortcode'
   get  '/:shortcode/stats', to: 'shorty#stats'
 end
