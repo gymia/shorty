@@ -1,6 +1,42 @@
-## API Documentation
+# Shorty
 
-**All responses must be encoded in JSON and have the appropriate Content-Type header**
+This is an API that creates shorten urls
+
+### Prerequisites
+
+1. Ubuntu Machine
+2. Ruby > 2.2.2
+3. MySQL(Ver 14.14 Distrib 5.7.12)
+4. Git
+5. Bundler gem
+
+Instuctions on how to setup Ruby, MySQL & Git on Ubuntu server are given on:
+https://gorails.com/setup/ubuntu/14.04
+To install `bundler` execute `gem install bundler` after you have installed Ruby
+
+### Deployment instructions
+
+1. Clone `git clone https://github.com/sekretarot/shorty.git`
+2. Change the directory to cloned repo.
+3. Run `bundle install`
+5. Setup database using `rake db:create db:migrate`
+6. Run Rails Server using `bundle exec rails s`
+
+### Testing
+
+Test environment setup
+```
+$ cd to_project_path
+$ bundle install
+$ RAILS_ENV=test bundle exec rake db:create db:migrate
+```
+Run all tests
+```
+$ cd to_project_path
+$ bundle exec rspec
+```
+
+## API Documentation
 
 
 ### POST /shorten
