@@ -54,11 +54,28 @@ describe UrlsController, type: :controller do
       end
 
       it 'generates a random short code when it is not passed as a parameter' do
+        post :shorten, params: { url: 'http://www.google.com/', shortcode: nil }
 
+        expect(response.status).to eq(201)
+        expect(assigns(:url).url).to eq('http://www.google.com/')
+        expect(assigns(:url).start_date).to eq(current_time)
+
+        json = JSON.parse(response.body)
+        expect(json['shortcode']).to eq(assigns(:url).short_code)
       end
 
       it 'is case sensitive for new shortcode registers' do
+        create :url, short_code: 'asdf'
 
+        post :shorten, params: { url: 'http://www.facebook.com/', shortcode: 'AsDf' }
+
+        expect(response.status).to eq(201)
+        expect(assigns(:url).url).to eq('http://www.facebook.com/')
+        expect(assigns(:url).short_code).to eq('AsDf')
+        expect(assigns(:url).start_date).to eq(current_time)
+
+        json = JSON.parse(response.body)
+        expect(json['shortcode']).to eq('AsDf')
       end
     end
   end
