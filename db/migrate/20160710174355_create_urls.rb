@@ -1,0 +1,13 @@
+class CreateUrls < ActiveRecord::Migration[5.0]
+  def change
+    create_table :urls do |t|
+      t.string :url
+      t.string :short_code
+      t.datetime :start_date
+      t.datetime :last_seen_date
+      t.integer :redirect_count
+
+      t.timestamps
+    end
+  end
+end

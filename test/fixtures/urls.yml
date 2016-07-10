@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  short_code: MyString
+  start_date: 2016-07-10 14:43:55
+  last_seen_date: 2016-07-10 14:43:55
+  redirect_count: 1
+
+two:
+  url: MyString
+  short_code: MyString
+  start_date: 2016-07-10 14:43:55
+  last_seen_date: 2016-07-10 14:43:55
+  redirect_count: 1
