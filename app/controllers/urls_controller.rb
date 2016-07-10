@@ -1,20 +1,37 @@
 class UrlsController < ApplicationController
+  before_action :find_url, except: :shorten
+
   def shorten
     @url = initialize_url
-    @url.shortcode = set_shortcode
-    @url.start_date = DateTime.parse(Time.current).iso8601
+    @url.short_code = set_short_code
+    @url.start_date = Time.current
     @url.save
 
     render json: { shortcode: @url.shortcode }, status: 201
   end
 
-  def shortcode
+  def short_code
+    @url.update_attributes last_seen_date: Time.current,
+                           redirect_count: @url.redirect_count + 1
+    redirect_to @url.url
   end
 
   def stats
+    render json: {
+      startDate: @url.start_date.iso8601(3),
+      lastSeenDate: @url.redirect_count == 0 ? nil : @url.last_seen_date.iso8601(3),
+      redirectCount: @url.redirect_count
+    }, status: 200
   end
 
   private
+
+  def find_url
+    @url = Url.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'The shortcode cannot be found in the system' },
+           status: 404
+  end
 
   def initialize_url
     render(json: { error: 'Url is not present.' },
@@ -22,7 +39,7 @@ class UrlsController < ApplicationController
     Url.new(url: params[:url])
   end
 
-  def set_shortcode
+  def set_short_code
     if params[:shortcode].present?
       check_availability
       check_format
