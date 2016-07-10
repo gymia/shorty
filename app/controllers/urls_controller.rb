@@ -4,9 +4,7 @@ class UrlsController < ApplicationController
   def shorten
     render json: { error: 'Url is not present.' }, status: 400 and return unless params[:url].present?
 
-    @url = Url.new(url: params[:url])
-    @url.short_code = params[:shortcode].present? ? params[:shortcode] : /\A[0-9a-zA-Z_]{6}\z/.random_example
-    @url.start_date = Time.current
+    @url = Url.new(url: params[:url], short_code: params[:shortcode])
 
     if @url.save
       render json: { shortcode: @url.short_code }, status: 201
@@ -25,7 +23,7 @@ class UrlsController < ApplicationController
 
   def stats
     render json: {
-      startDate: @url.start_date.iso8601(3),
+      startDate: @url.created_at.iso8601(3),
       lastSeenDate: @url.redirect_count == 0 ? nil : @url.last_seen_date.iso8601(3),
       redirectCount: @url.redirect_count
     }, status: 200

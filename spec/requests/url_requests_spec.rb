@@ -47,7 +47,6 @@ describe UrlsController, type: :controller do
         expect(response.status).to eq(201)
         expect(assigns(:url).url).to eq('http://www.google.com/')
         expect(assigns(:url).short_code).to eq('asdf')
-        expect(assigns(:url).start_date).to eq(current_time)
 
         json = JSON.parse(response.body)
         expect(json['shortcode']).to eq('asdf')
@@ -58,7 +57,6 @@ describe UrlsController, type: :controller do
 
         expect(response.status).to eq(201)
         expect(assigns(:url).url).to eq('http://www.google.com/')
-        expect(assigns(:url).start_date).to eq(current_time)
 
         json = JSON.parse(response.body)
         expect(json['shortcode']).to eq(assigns(:url).short_code)
@@ -72,7 +70,6 @@ describe UrlsController, type: :controller do
         expect(response.status).to eq(201)
         expect(assigns(:url).url).to eq('http://www.facebook.com/')
         expect(assigns(:url).short_code).to eq('AsDf')
-        expect(assigns(:url).start_date).to eq(current_time)
 
         json = JSON.parse(response.body)
         expect(json['shortcode']).to eq('AsDf')
