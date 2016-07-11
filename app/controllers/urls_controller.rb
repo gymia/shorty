@@ -16,15 +16,14 @@ class UrlsController < ApplicationController
   end
 
   def short_code
-    @url.update_attributes last_seen_date: Time.current,
-                           redirect_count: @url.redirect_count + 1
+    @url.update_attribute(:redirect_count, @url.redirect_count + 1)
     redirect_to @url.url
   end
 
   def stats
     render json: {
       startDate: @url.created_at.iso8601(3),
-      lastSeenDate: @url.redirect_count == 0 ? nil : @url.last_seen_date.iso8601(3),
+      lastSeenDate: @url.redirect_count == 0 ? nil : @url.updated_at.iso8601(3),
       redirectCount: @url.redirect_count
     }, status: 200
   end
@@ -32,7 +31,7 @@ class UrlsController < ApplicationController
   private
 
   def find_url
-    @url = Url.friendly.find(params[:id])
+    @url = Url.friendly.find(params[:shortcode])
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'The shortcode cannot be found in the system.' },
            status: 404

@@ -3,7 +3,6 @@ class CreateUrls < ActiveRecord::Migration[5.0]
     create_table :urls do |t|
       t.string :url
       t.string :short_code
-      t.datetime :last_seen_date
       t.integer :redirect_count, default: 0
 
       t.timestamps
