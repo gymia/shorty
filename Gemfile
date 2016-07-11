@@ -29,6 +29,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 2.8.0'
+  gem 'shoulda-callback-matchers', '~> 1.1', '>= 1.1.3'
 end
 
 group :development do
