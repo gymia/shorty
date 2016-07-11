@@ -26,6 +26,24 @@ The challenge, if you choose to accept it, is to create a micro service to short
 
 -------------------------------------------------------------------------
 
+## How to install
+
+Before the installation, be sure to have the Ruby 2.3.1 installed. You can find how to do it [here](https://gorails.com/setup/ubuntu/14.04#ruby).
+After that, for the service installation, download it and run the following commands:
+
+```
+gem install bundle
+bundle install
+rails db:create
+rails db:migrate
+```
+
+Then, run `rails s`, and it will be available at http://localhost:3000
+
+[Live example](https://tiago-shorty.herokuapp.com/)
+
+-------------------------------------------------------------------------
+
 ## API Documentation
 
 **All responses must be encoded in JSON and have the appropriate Content-Type header**
@@ -131,5 +149,3 @@ lastSeenDate      | date of the last time the a redirect was issued, not present
 Error | Description
 ----- | ------------
 404   | The ```shortcode``` cannot be found in the system
-
-
