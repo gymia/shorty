@@ -99,7 +99,7 @@ Error | Description
 ### GET /:shortcode/stats
 
 ```
-GET /:code
+GET /:shortcode/stats
 Content-Type: "application/json"
 ```
 
