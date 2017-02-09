@@ -1,8 +1,11 @@
 Bundler.require :default
 
 module Shorty
+  module_function
 
+  def redis
+    @redis ||= Redis.new
+  end
 end
 
-# TODO: require classes here
 require "./lib/shorty/application.rb"
