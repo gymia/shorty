@@ -1,0 +1,14 @@
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+
+shorty:
+  build: .
+  command: bundle exec rackup config.ru -o 0.0.0.0
+  volumes:
+    - .:/shorty
+  ports:
+    - "9292:9292"
+  links:
+    - redis
