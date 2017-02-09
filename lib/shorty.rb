@@ -1,10 +1,12 @@
 Bundler.require :default
+require 'yaml'
 
 module Shorty
   module_function
 
   def redis
-    @redis ||= Redis.new
+    config = YAML::load_file(File.join('./config', 'redis.yml'))
+    @redis ||= Redis.new(config)
   end
 end
 

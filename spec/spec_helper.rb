@@ -1,4 +1,5 @@
-require './lib/shorty.rb'
+require 'rspec'
+require './lib/shorty'
 require 'fakeredis'
 
 RSpec.configure do |config|
