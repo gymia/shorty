@@ -5,7 +5,25 @@ Shorty Challenge
 
 Ruby simple URL shortner microservice
 
-## Dependencies
+## Dependencies / Installation
+
+This is a dockerized application that has only [Redis](https://redis.io/) as
+external dependency.
+
+In order to setup this application, you should have docker installed on your
+machine. You can follow this [installation
+guide](https://docs.docker.com/engine/installation/) if you don't have it.
+
+Assuming that you have docker up and running, you can follow this steps to setup
+and start the application:
+
+* ```docker-compose build```
+
+* ```docker-compose up```
+
+To run the specs, you can use the following command:
+
+```docker-compose run shorty bundle exec rspec```
 
 
 ## API Documentation
