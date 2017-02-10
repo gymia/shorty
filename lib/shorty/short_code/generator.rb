@@ -1,5 +1,5 @@
 module Shorty
-  module ShortCode
+  module Shortcode
     class Generator
       # TODO: implement
       def self.run

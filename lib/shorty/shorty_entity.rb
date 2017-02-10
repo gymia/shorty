@@ -16,7 +16,7 @@ module Shorty
       validate_shortcode
       return false if errors.values.any?
 
-      @shortcode = ShortCode::Generator.run
+      @shortcode = Shortcode::Generator.run
       redis.set(shortcode, url)
       self
     end
@@ -31,7 +31,7 @@ module Shorty
     end
 
     def valid?
-      ShortCode::Validator.qualified?(shortcode)
+      Shortcode::Validator.qualified?(shortcode)
     end
 
     def validate_shortcode
