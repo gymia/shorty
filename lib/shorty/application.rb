@@ -1,4 +1,5 @@
 require 'rack/router'
+require 'rack/lobster'
 require 'json'
 
 module Shorty
@@ -6,12 +7,8 @@ module Shorty
     module_function
 
     def router
-      hello = ->(env) do
-        [200, { 'Content-Type' => 'application/json' }, [ { x: 42 }.to_json ]]
-      end
-
       Rack::Router.new do
-        get "/" => hello
+        post "/shorten" => Shorty::Controllers::Create.new, as: "shorten"
       end
     end
   end

@@ -20,6 +20,10 @@ module Shorty
       self
     end
 
+    def to_hash
+      {url: url, shortcode: shortcode}
+    end
+
     private
     attr_reader :redis
 

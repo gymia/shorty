@@ -1,6 +1,6 @@
 Bundler.require :default
 require 'yaml'
-require 'pry' unless ENV['RACK_ENV'] = 'production'
+require 'pry'
 
 
 module Shorty
@@ -12,6 +12,7 @@ module Shorty
   end
 end
 
+require "./lib/shorty/controllers/create.rb"
 require "./lib/shorty/application.rb"
 require "./lib/shorty/shortcode/validator.rb"
 require "./lib/shorty/shortcode/generator.rb"
