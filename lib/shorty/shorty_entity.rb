@@ -1,4 +1,3 @@
-require 'rack/router'
 require 'json'
 
 module Shorty
