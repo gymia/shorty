@@ -13,6 +13,7 @@ module Shorty
 end
 
 require "./lib/shorty/controllers/create.rb"
+require "./lib/shorty/controllers/show.rb"
 require "./lib/shorty/application.rb"
 require "./lib/shorty/shortcode/validator.rb"
 require "./lib/shorty/shortcode/generator.rb"

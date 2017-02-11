@@ -8,7 +8,8 @@ module Shorty
 
     def router
       Rack::Router.new do
-        post "/shorten" => Shorty::Controllers::Create.new, as: "shorten"
+        post "/shorten" => Shorty::Controllers::Create.new, as: "create"
+        get "/:shorten" => Shorty::Controllers::Show.new, as: "show"
       end
     end
   end
