@@ -20,7 +20,7 @@ describe Shorty::ShortyEntity do
     end
 
     context 'given a valid shortcode' do
-      let(:shorty) { described_class.new("facebook.com", "abc") }
+      let(:shorty) { described_class.new("facebook.com", "11aab2") }
 
       it 'returns itself' do
         expect(shorty.create).to be_an_instance_of(described_class)
