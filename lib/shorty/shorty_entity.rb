@@ -1,3 +1,4 @@
+require 'uri'
 require 'json'
 
 module Shorty
@@ -18,6 +19,16 @@ module Shorty
       @shortcode = set_shortcode
       redis.set(shortcode, url)
       self
+    end
+
+    def self.find(shortcode)
+      result = Shorty.redis.get(shortcode)
+
+      self.new(result, shortcode) if result
+    end
+
+    def shortened_url
+      URI::HTTP.build(host: shortcode).to_s if shortcode
     end
 
     def to_hash

@@ -49,4 +49,31 @@ describe Shorty::ShortyEntity do
       end
     end
   end
+
+  describe '.find' do
+    context 'given an existing shortcode' do
+      before { described_class.new("facebook.com", "1a2b3c").create }
+      subject { described_class.find("1a2b3c") }
+
+      it { is_expected.to be_an_instance_of(described_class) }
+    end
+
+    context 'given an unexistent shortcode' do
+      subject { described_class.find("aaa111") }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#shortened_url' do
+    context 'given a shortcode' do
+      subject { described_class.new("google.com", "111222").shortened_url }
+      it { is_expected.to eq("http://111222") }
+    end
+
+    context 'without shortcode' do
+      subject { described_class.new("google.com").shortened_url }
+      it { is_expected.to be_nil }
+    end
+  end
 end
