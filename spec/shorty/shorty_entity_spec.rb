@@ -25,6 +25,11 @@ describe Shorty::ShortyEntity do
       it 'returns itself' do
         expect(shorty.create).to be_an_instance_of(described_class)
       end
+
+      it 'returns with given shortcode' do
+        shorty.create
+        expect(shorty.shortcode).to eq("11aab2")
+      end
     end
 
     context 'given an invalid shortcode' do
