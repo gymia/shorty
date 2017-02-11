@@ -12,8 +12,8 @@ describe Shorty::Shortcode::Validator do
       it { is_expected.to be_truthy }
     end
 
-    context 'given a shortcode with less than 6 chars' do
-      subject { described_class.qualified?('ab12') }
+    context 'given a shortcode with less than 4 chars' do
+      subject { described_class.qualified?('ab1') }
       it { is_expected.to be_falsy }
     end
 
