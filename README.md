@@ -26,6 +26,29 @@ The challenge, if you choose to accept it, is to create a micro service to short
 
 -------------------------------------------------------------------------
 
+## Installation
+
+In order to setup and install this application, you will need to have
+[docker](https://docs.docker.com/engine/installation/)
+installed on your machine. Assuming that you already have it installed, next
+steeps are:
+
+* Setup and build the basics of the environment:
+```
+docker-compose build
+```
+* Start the application itself(it will start redis and also the application on
+  port 9292 by default):
+```
+docker-compose up
+```
+* To run the specs:
+```
+docker-compose run shorty bundle exec rspec
+```
+
+-------------------------------------------------------------------------
+
 ## API Documentation
 
 **All responses must be encoded in JSON and have the appropriate Content-Type header**
