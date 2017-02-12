@@ -1,6 +1,3 @@
-require 'uri'
-require 'json'
-
 module Shorty
   class ShortyEntity
     attr_reader :url, :shortcode, :error
@@ -10,7 +7,7 @@ module Shorty
       @url       = url
       @shortcode = shortcode
       @redis     = Shorty.redis
-      @validator = Shorty::Shortcode::Validator.new(shortcode)
+      @validator = Shortcode::Validator.new(shortcode)
     end
 
     def create
@@ -29,7 +26,7 @@ module Shorty
     end
 
     def shortened_url
-      URI::HTTP.build(host: shortcode).to_s if shortcode
+      Shortcode::Generator.shortener(shortcode)
     end
 
     def to_hash
@@ -37,10 +34,10 @@ module Shorty
     end
 
     private
-    attr_reader :redis, :validator
+    attr_reader :redis, :validator, :generator
 
     def set_shortcode
-      shortcode && validator.qualified? ? shortcode : Shortcode::Generator.run(url)
+      shortcode && validator.qualified? ? shortcode : Shortcode::Generator.perform(shortcode)
     end
   end
 end
