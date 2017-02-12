@@ -18,7 +18,7 @@ module Shorty
         url       = req.params["url"] || nil
         shortcode = req.params["shortcode"] || nil
 
-        error = {message: "url is not present", code: 400}
+        error = Shorty::Errors.missing_url
         return Error.call(error) if url.nil?
 
         entity = Shorty::ShortyEntity.new(url, shortcode)

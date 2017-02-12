@@ -20,10 +20,7 @@ module Shorty
         if entity
           Success.call(entity.shortened_url)
         else
-          Error.call({
-            message: "The shortcode cannot be found in the system",
-            code: 404
-          })
+          Error.call(Shorty::Errors.not_found)
         end
       end
     end

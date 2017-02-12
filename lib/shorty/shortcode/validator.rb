@@ -11,15 +11,9 @@ module Shorty
 
       def perform
         if in_use?
-          {
-            message: "The the desired shortcode is already in use. Shortcodes are case-sensitive.",
-            code: 409
-          }
+          Errors.in_use
         elsif !qualified?
-          {
-            message: "The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$",
-            code: 422
-          }
+          Errors.not_match_requirements
         end
       end
 
