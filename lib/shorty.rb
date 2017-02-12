@@ -12,6 +12,7 @@ module Shorty
   end
 end
 
+require "./lib/hash.rb"
 require "./lib/shorty/errors.rb"
 require "./lib/shorty/controllers/create.rb"
 require "./lib/shorty/controllers/show.rb"
