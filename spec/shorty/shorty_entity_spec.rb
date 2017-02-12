@@ -84,4 +84,19 @@ describe Shorty::ShortyEntity do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#increment_redirect' do
+    let!(:shorty) { described_class.new({url: 'google.com'}).create }
+    let(:date) { DateTime.new(2017, 1, 20) }
+    before { allow(DateTime).to receive(:now).and_return(date) }
+
+    it 'updates last seen date with current datetime' do
+      shorty.increment_redirect
+      expect(shorty.reload.last_seen_date).to eq("2017-01-20T00:00:00.000Z")
+    end
+
+    it 'increments redirect count by 1' do
+      expect{shorty.increment_redirect}.to change{shorty.reload.redirect_count}.by(1)
+    end
+  end
 end

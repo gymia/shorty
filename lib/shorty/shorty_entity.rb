@@ -10,7 +10,7 @@ module Shorty
       @shortcode      = args.fetch(:shortcode, nil)
       @start_date     = args.fetch(:start_date, nil)
       @last_seen_date = args.fetch(:last_seen_date, nil)
-      @redirect_count = args.fetch(:redirect_count, 0)
+      @redirect_count = args.fetch(:redirect_count, 0).to_i
       @redis          = Shorty.redis
       @validator      = Shortcode::Validator.new(shortcode)
     end
@@ -38,6 +38,34 @@ module Shorty
         hsh.merge!({shortcode: shortcode})
         self.new(hsh)
       end
+    end
+
+    def reload
+      hsh = redis.hgetall(shortcode).symbolize_keys
+
+      if hsh.any?
+        hsh.merge!({shortcode: shortcode})
+        @url            = hsh.fetch(:url)
+        @shortcode      = hsh.fetch(:shortcode, nil)
+        @start_date     = hsh.fetch(:start_date, nil)
+        @last_seen_date = hsh.fetch(:last_seen_date, nil)
+        @redirect_count = hsh.fetch(:redirect_count, 0).to_i
+      end
+
+      self
+    end
+
+    def increment_redirect
+      redis.pipelined do
+        redis.hset(
+          shortcode,
+          :last_seen_date,
+          current_datetime
+        )
+        redis.hincrby(shortcode, :redirect_count, 1)
+      end
+
+      self.class.find(shortcode)
     end
 
     def shortened_url
