@@ -37,7 +37,7 @@ module Shorty
     attr_reader :redis, :validator, :generator
 
     def set_shortcode
-      shortcode && validator.qualified? ? shortcode : Shortcode::Generator.perform(shortcode)
+      shortcode && validator.qualified? ? shortcode : Shortcode::Generator.perform(url)
     end
   end
 end
