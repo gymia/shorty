@@ -2,7 +2,6 @@ module Shorty
   class ShortyEntity
     attr_reader :url, :shortcode, :error
 
-    # TODO: use args with fetch(value,default)
     def initialize(url, shortcode=nil)
       @url       = url
       @shortcode = shortcode
@@ -37,7 +36,11 @@ module Shorty
     attr_reader :redis, :validator, :generator
 
     def set_shortcode
-      shortcode && validator.qualified? ? shortcode : Shortcode::Generator.perform(url)
+      shortcode && validator.qualified? ? shortcode : generate_shortcode
+    end
+
+    def generate_shortcode
+      Shortcode::Generator.perform(url)
     end
   end
 end
