@@ -22,7 +22,12 @@ module Shorty
         return Error.call(error) if url.nil?
 
         entity = Shorty::ShortyEntity.new(url: url, shortcode: shortcode)
-        entity.create ? Success.call(entity.to_hash) : Error.call(entity.error)
+        if entity.create
+          entity_hash = { url: entity.url, shortcode: entity.shortcode }
+          Success.call(entity_hash)
+        else
+          Error.call(entity.error)
+        end
       end
     end
   end

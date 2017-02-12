@@ -65,13 +65,6 @@ module Shorty
       Shortcode::Generator.shortener(shortcode)
     end
 
-    def to_hash
-      # TODO: remove this and mount the hash on the create controller
-      { url: url, shortcode: shortcode }#, start_date: start_date,
-      #   last_seen_date: last_seen_date, redirect_count: redirect_count
-      # }
-    end
-
     private
     attr_reader :redis, :validator, :generator
 
@@ -90,6 +83,7 @@ module Shorty
       @last_seen_date = hsh.fetch(:last_seen_date, nil)
       @redirect_count = hsh.fetch(:redirect_count, 0).to_i
     end
+
     # TODO: warning: not this class's responsibility
     def current_datetime
       DateTime.now.strftime("%Y-%m-%dT%H:%M:%S.%LZ")
