@@ -4,7 +4,7 @@ describe Shorty::Shortcode::Validator do
   describe '#qualified?' do
     context 'given a nil shortcode' do
       subject { described_class.new(nil).qualified? }
-      it { is_expected.to be_truthy }
+      it { is_expected.to be_falsy }
     end
 
     context 'given a valid shortcode' do
@@ -40,7 +40,9 @@ describe Shorty::Shortcode::Validator do
 
   describe '#perform' do
     context 'given a shortcode in use' do
-      before { Shorty::ShortyEntity.new('google.com', '123123').create }
+      before do
+        Shorty::ShortyEntity.new(url: 'google.com', shortcode: '123123').create
+      end
       expected_hash = {
         message: "The the desired shortcode is already in use. Shortcodes are case-sensitive.",
         code: 409
@@ -62,6 +64,11 @@ describe Shorty::Shortcode::Validator do
 
     context 'given a valid shortcode' do
       subject { described_class.new('abc123').perform }
+      it { is_expected.to be_nil }
+    end
+
+    context 'given a nil shortcode' do
+      subject { described_class.new(nil).perform }
       it { is_expected.to be_nil }
     end
   end
