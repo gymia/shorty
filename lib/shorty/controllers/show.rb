@@ -18,6 +18,7 @@ module Shorty
 
         entity = Shorty::ShortyEntity.find(shortcode)
         if entity
+          entity.increment_redirect
           Success.call(entity.shortened_url)
         else
           Error.call(Shorty::Errors.not_found)
