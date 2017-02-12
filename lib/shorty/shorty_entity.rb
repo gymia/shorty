@@ -6,11 +6,8 @@ module Shorty
     attr_reader :redirect_count
 
     def initialize(args)
-      @url            = args.fetch(:url)
-      @shortcode      = args.fetch(:shortcode, nil)
-      @start_date     = args.fetch(:start_date, nil)
-      @last_seen_date = args.fetch(:last_seen_date, nil)
-      @redirect_count = args.fetch(:redirect_count, 0).to_i
+      update_attributes(args)
+
       @redis          = Shorty.redis
       @validator      = Shortcode::Validator.new(shortcode)
     end
@@ -45,11 +42,7 @@ module Shorty
 
       if hsh.any?
         hsh.merge!({shortcode: shortcode})
-        @url            = hsh.fetch(:url)
-        @shortcode      = hsh.fetch(:shortcode, nil)
-        @start_date     = hsh.fetch(:start_date, nil)
-        @last_seen_date = hsh.fetch(:last_seen_date, nil)
-        @redirect_count = hsh.fetch(:redirect_count, 0).to_i
+        update_attributes(hsh)
       end
 
       self
@@ -90,6 +83,13 @@ module Shorty
       Shortcode::Generator.perform(url)
     end
 
+    def update_attributes(hsh)
+      @url            = hsh.fetch(:url)
+      @shortcode      = hsh.fetch(:shortcode, nil)
+      @start_date     = hsh.fetch(:start_date, nil)
+      @last_seen_date = hsh.fetch(:last_seen_date, nil)
+      @redirect_count = hsh.fetch(:redirect_count, 0).to_i
+    end
     # TODO: warning: not this class's responsibility
     def current_datetime
       DateTime.now.strftime("%Y-%m-%dT%H:%M:%S.%LZ")
