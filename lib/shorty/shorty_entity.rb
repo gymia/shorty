@@ -8,8 +8,8 @@ module Shorty
     def initialize(args)
       update_attributes(args)
 
-      @redis          = Shorty.redis
-      @validator      = Shortcode::Validator.new(shortcode)
+      @redis     = Shorty.redis
+      @validator = Shortcode::Validator.new(shortcode)
     end
 
     def create
@@ -18,9 +18,10 @@ module Shorty
 
       @shortcode = set_shortcode
       redis.mapped_hmset(
-         shortcode,
+        shortcode,
         {
-          url: url, start_date: current_datetime,
+          url: url,
+          start_date: DateTime.shorty_current,
           redirect_count: redirect_count
         }
       )
@@ -50,11 +51,7 @@ module Shorty
 
     def increment_redirect
       redis.pipelined do
-        redis.hset(
-          shortcode,
-          :last_seen_date,
-          current_datetime
-        )
+        redis.hset(shortcode, :last_seen_date, DateTime.shorty_current)
         redis.hincrby(shortcode, :redirect_count, 1)
       end
 
@@ -82,11 +79,6 @@ module Shorty
       @start_date     = hsh.fetch(:start_date, nil)
       @last_seen_date = hsh.fetch(:last_seen_date, nil)
       @redirect_count = hsh.fetch(:redirect_count, 0).to_i
-    end
-
-    # TODO: warning: not this class's responsibility
-    def current_datetime
-      DateTime.now.strftime("%Y-%m-%dT%H:%M:%S.%LZ")
     end
   end
 end
