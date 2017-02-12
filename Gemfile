@@ -11,6 +11,7 @@ end
 
 group :test do
   gem 'rack-test', '~> 0.6.3'
+  gem 'simplecov'
 end
 
 group :development, :test do

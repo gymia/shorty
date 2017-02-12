@@ -1,3 +1,10 @@
+require 'simplecov'
+
+SimpleCov.start do
+  refuse_coverage_drop
+  add_filter "/spec/"
+end
+
 require 'rspec'
 require 'fakeredis'
 require 'pry'
