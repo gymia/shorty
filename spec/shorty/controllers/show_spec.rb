@@ -6,7 +6,7 @@ describe Shorty::Controllers::Show do
   describe "#call,  GET /:shorten" do
     context 'given an existing shortcode' do
       before do
-        Shorty::ShortyEntity.new("abc.com", "777777").create
+        Shorty::ShortyEntity.new(url: "abc.com", shortcode: "777777").create
         get "/777777"
       end
 

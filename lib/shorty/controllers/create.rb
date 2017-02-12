@@ -21,7 +21,7 @@ module Shorty
         error = Shorty::Errors.missing_url
         return Error.call(error) if url.nil?
 
-        entity = Shorty::ShortyEntity.new(url, shortcode)
+        entity = Shorty::ShortyEntity.new(url: url, shortcode: shortcode)
         entity.create ? Success.call(entity.to_hash) : Error.call(entity.error)
       end
     end
