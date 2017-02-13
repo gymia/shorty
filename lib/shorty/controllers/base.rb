@@ -4,24 +4,25 @@ module Shorty
   module Controllers
     class Base
       Created = lambda { |shorty_hash|
-        content = [shorty_hash.to_json]
-        [201, {"CONTENT_TYPE" => "application/json"}, content]
+        [201, content_type, [shorty_hash.to_json]]
       }
 
       Redirect = lambda { |location|
-        [302, {"CONTENT_TYPE" => "application/json", "Location" => location},
-         [{}.to_json]]
+        [302, content_type.merge!({'Location' => location}), [{}.to_json]]
       }
 
       Success = lambda { |shorty_hash|
-        content = [shorty_hash.to_json]
-        [200, {"CONTENT_TYPE" => "application/json"}, content]
+        [200, content_type, [shorty_hash.to_json]]
       }
 
       Error = lambda { |error|
-        content = [{ description: error[:message] }.to_json]
-        [error[:code], {"CONTENT_TYPE" => "application/json"}, content]
+        [error[:code], content_type, [{ description: error[:message] }.to_json]]
       }
+
+      private
+      def self.content_type
+        { 'CONTENT_TYPE' => 'application/json' }
+      end
     end
   end
 end
