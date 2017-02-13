@@ -4,7 +4,7 @@ module Shorty
   module Controllers
     class Stats < Base
       def call(env)
-        shortcode = env["rack.route_params"].fetch(:shorten, nil)
+        shortcode = env['rack.route_params'].fetch(:shorten, nil)
         shorty    = Models::Shorty.find(shortcode)
 
         if shorty

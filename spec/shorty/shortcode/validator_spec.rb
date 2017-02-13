@@ -44,7 +44,7 @@ describe Shorty::Shortcode::Validator do
         Shorty::Models::Shorty.new(url: 'google.com', shortcode: '123123').create
       end
       expected_hash = {
-        message: "The the desired shortcode is already in use. Shortcodes are case-sensitive.",
+        message: 'The the desired shortcode is already in use. Shortcodes are case-sensitive.',
         code: 409
       }
       subject { described_class.new('123123').perform }
@@ -54,7 +54,7 @@ describe Shorty::Shortcode::Validator do
 
     context 'given a shortcode not qualified(does not match regex)' do
       expected_hash = {
-        message: "The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$",
+        message: 'The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$',
         code: 422
       }
       subject { described_class.new('123').perform }

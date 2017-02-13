@@ -100,7 +100,7 @@ describe Shorty::Models::Shorty do
 
     it 'updates last seen date with current datetime' do
       shorty.increment_redirect
-      expect(shorty.reload.last_seen_date).to eq("2017-01-20T00:00:00.000Z")
+      expect(shorty.reload.last_seen_date).to eq('2017-01-20T00:00:00.000Z')
     end
 
     it 'increments redirect count by 1' do

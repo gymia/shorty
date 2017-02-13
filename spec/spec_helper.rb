@@ -2,7 +2,7 @@ require 'simplecov'
 
 SimpleCov.start do
   refuse_coverage_drop
-  add_filter "/spec/"
+  add_filter '/spec/'
 end
 
 require 'rspec'

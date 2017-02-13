@@ -1,7 +1,7 @@
 redis:
   image: redis
   ports:
-    - "6379:6379"
+    - '6379:6379'
 
 shorty:
   build: .
@@ -9,6 +9,6 @@ shorty:
   volumes:
     - .:/shorty
   ports:
-    - "9292:9292"
+    - '9292:9292'
   links:
     - redis

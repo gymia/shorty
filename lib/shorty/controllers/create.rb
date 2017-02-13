@@ -5,8 +5,8 @@ module Shorty
     class Create < Base
       def call(env)
         req       = Rack::Request.new(env)
-        url       = req.params["url"] || nil
-        shortcode = req.params["shortcode"] || nil
+        url       = req.params['url'] || nil
+        shortcode = req.params['shortcode'] || nil
 
         error = Shorty::Errors.missing_url
         return Error.call(error) if url.nil?

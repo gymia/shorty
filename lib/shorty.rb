@@ -12,14 +12,14 @@ module Shorty
   end
 end
 
-require "./lib/hash.rb"
-require "./lib/date_time.rb"
-require "./lib/shorty/errors.rb"
-require "./lib/shorty/controllers/base.rb"
-require "./lib/shorty/controllers/create.rb"
-require "./lib/shorty/controllers/show.rb"
-require "./lib/shorty/controllers/stats.rb"
-require "./lib/shorty/application.rb"
-require "./lib/shorty/shortcode/validator.rb"
-require "./lib/shorty/shortcode/generator.rb"
-require "./lib/shorty/models/shorty.rb"
+require './lib/hash.rb'
+require './lib/date_time.rb'
+require './lib/shorty/errors.rb'
+require './lib/shorty/controllers/base.rb'
+require './lib/shorty/controllers/create.rb'
+require './lib/shorty/controllers/show.rb'
+require './lib/shorty/controllers/stats.rb'
+require './lib/shorty/application.rb'
+require './lib/shorty/shortcode/validator.rb'
+require './lib/shorty/shortcode/generator.rb'
+require './lib/shorty/models/shorty.rb'
