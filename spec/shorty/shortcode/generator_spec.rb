@@ -16,6 +16,15 @@ describe Shorty::Shortcode::Generator do
       it { is_expected.to eq("E2LvoD") }
     end
 
+    context 'given similar prefix urls' do
+      let(:google) { described_class.perform('google.com.br') }
+      let(:moogle) { described_class.perform('moogle.com.br') }
+
+      it 'generates different shortcodes' do
+        expect(google).to_not eq(moogle)
+      end
+    end
+
     context 'given a bigger url' do
       subject do
         described_class.perform(

@@ -155,4 +155,6 @@ Error | Description
 ----- | ------------
 404   | The ```shortcode``` cannot be found in the system
 
+## TODO / FIXME
 
+* Generator has a bug with google.com.br vs moogle.com.br for example
