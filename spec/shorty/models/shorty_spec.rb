@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Shorty::ShortyEntity do
+describe Shorty::Models::Shorty do
   describe '#create' do
     context 'given url only' do
       let(:shorty) { described_class.new({url: 'facebook.com'}) }
