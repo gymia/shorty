@@ -1,4 +1,4 @@
-require 'base64'
+require 'digest'
 require 'uri'
 
 
@@ -6,9 +6,8 @@ module Shorty
   module Shortcode
     class Generator
       def self.perform(url)
-        url = "http://#{url}" unless url =~ /http/
-        encoded = Base64.urlsafe_encode64(url)
-        encoded.reverse.scan(/[0-9a-zA-Z_]{6}/).last
+        encoded = Digest::MD5.hexdigest(url)
+        encoded.reverse.scan(/[0-9a-zA-Z_]{6}/).first
       end
 
       def self.shortener(shortcode=nil)
