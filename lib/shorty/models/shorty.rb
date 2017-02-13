@@ -18,13 +18,11 @@ module Shorty
         return false if error
 
         @shortcode = set_shortcode
+        return reload if url && self.class.find(shortcode)
+
         redis.mapped_hmset(
           shortcode,
-          {
-            url: url,
-            start_date: DateTime.shorty_current,
-            redirect_count: redirect_count
-          }
+          { url: url, start_date: current_date, redirect_count: redirect_count }
         )
 
         self.class.find(shortcode)
@@ -52,7 +50,7 @@ module Shorty
 
       def increment_redirect
         redis.pipelined do
-          redis.hset(shortcode, :last_seen_date, DateTime.shorty_current)
+          redis.hset(shortcode, :last_seen_date, current_date)
           redis.hincrby(shortcode, :redirect_count, 1)
         end
 
@@ -72,6 +70,10 @@ module Shorty
 
       def generate_shortcode
         Shortcode::Generator.perform(url)
+      end
+
+      def current_date
+        DateTime.shorty_current
       end
 
       def update_attributes(hsh)

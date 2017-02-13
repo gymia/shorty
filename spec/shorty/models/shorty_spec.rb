@@ -17,6 +17,14 @@ describe Shorty::Models::Shorty do
       it 'does not return false' do
         expect(shorty.create).to_not be_falsy
       end
+
+      context 'when re-creating' do
+        let!(:existing_shorty) { shorty.create }
+
+        it 'returns found instance without creating a new one' do
+          expect(shorty.create.start_date).to eq(existing_shorty.start_date)
+        end
+      end
     end
 
     context 'given a valid shortcode' do
