@@ -5,7 +5,7 @@ module Shorty
     class Show < Base
       def call(env)
         shortcode = env["rack.route_params"].fetch(:shorten, nil)
-        shorty = Models::Shorty.find(shortcode)
+        shorty    = Models::Shorty.find(shortcode)
 
         if shorty && shorty.increment_redirect
           Redirect.call(shorty.shortened_url)
