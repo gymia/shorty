@@ -46,5 +46,22 @@ describe Shorty::Controllers::Show do
         expect(body.keys).to include(:lastSeenDate)
       end
     end
+
+    context 'given an unexistent shortcode' do
+      before do
+        get '/123456/stats'
+      end
+
+      it 'responds with 404 code' do
+        expect(last_response.status).to eq(404)
+      end
+
+      it 'responds with error description body' do
+        expected_body = {
+          description: 'The shortcode cannot be found in the system'
+        }.to_json
+        expect(last_response.body).to eq(expected_body)
+      end
+    end
   end
 end
