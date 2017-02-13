@@ -14,7 +14,7 @@ describe Shorty::Controllers::Show do
         expect(last_response.status).to eq(200)
       end
 
-      it 'has 0 redirects' do
+      it 'has no redirects' do
         body = JSON.parse(last_response.body).symbolize_keys
         expect(body[:redirectCount]).to eq(0)
       end
@@ -26,6 +26,25 @@ describe Shorty::Controllers::Show do
     end
 
     context 'given a shortcode with 3 redirects' do
+      before do
+        Shorty::Models::Shorty.new(url: 'google.com', shortcode: '111111').create
+        3.times { get '/111111' }
+        get '/111111/stats'
+      end
+
+      it 'responds with 200 code' do
+        expect(last_response.status).to eq(200)
+      end
+
+      it 'has 3 redirects' do
+        body = JSON.parse(last_response.body).symbolize_keys
+        expect(body[:redirectCount]).to eq(3)
+      end
+
+      it 'has last seen date' do
+        body = JSON.parse(last_response.body).symbolize_keys
+        expect(body.keys).to include(:lastSeenDate)
+      end
     end
   end
 end
