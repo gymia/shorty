@@ -13,6 +13,11 @@ module Shorty
          [{}.to_json]]
       }
 
+      Success = lambda { |shorty_hash|
+        content = [shorty_hash.to_json]
+        [200, {"CONTENT_TYPE" => "application/json"}, content]
+      }
+
       Error = lambda { |error|
         content = [{ description: error[:message] }.to_json]
         [error[:code], {"CONTENT_TYPE" => "application/json"}, content]
