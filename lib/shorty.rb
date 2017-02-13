@@ -1,6 +1,6 @@
 Bundler.require :default
 require 'yaml'
-require 'pry'
+require 'pry' unless ENV['RACK_ENV'] == 'production'
 
 
 module Shorty
