@@ -21,7 +21,7 @@ module Shorty
       attr_reader :shortcode
 
       def in_use?
-        ShortyEntity.find(shortcode) if shortcode
+        Models::Shorty.find(shortcode) if shortcode
       end
     end
   end

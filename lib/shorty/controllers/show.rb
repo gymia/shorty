@@ -16,10 +16,10 @@ module Shorty
       def call(env)
         shortcode = env["rack.route_params"].fetch(:shorten, nil)
 
-        entity = Shorty::ShortyEntity.find(shortcode)
-        if entity
-          entity.increment_redirect
-          Success.call(entity.shortened_url)
+        shorty = Models::Shorty.find(shortcode)
+        if shorty
+          shorty.increment_redirect
+          Success.call(shorty.shortened_url)
         else
           Error.call(Shorty::Errors.not_found)
         end

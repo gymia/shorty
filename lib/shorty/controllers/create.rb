@@ -3,8 +3,8 @@ require 'json'
 module Shorty
   module Controllers
     class Create
-      Success = lambda { |entity|
-        content = [entity.to_json]
+      Success = lambda { |shorty_hash|
+        content = [shorty_hash.to_json]
         [201, {"CONTENT_TYPE" => "application/json"}, content]
       }
 
@@ -21,12 +21,12 @@ module Shorty
         error = Shorty::Errors.missing_url
         return Error.call(error) if url.nil?
 
-        entity = Shorty::ShortyEntity.new(url: url, shortcode: shortcode)
-        if entity.create
-          entity_hash = { url: entity.url, shortcode: entity.shortcode }
-          Success.call(entity_hash)
+        shorty = Models::Shorty.new(url: url, shortcode: shortcode)
+        if shorty.create
+          shorty_hash = { url: shorty.url, shortcode: shorty.shortcode }
+          Success.call(shorty_hash)
         else
-          Error.call(entity.error)
+          Error.call(shorty.error)
         end
       end
     end

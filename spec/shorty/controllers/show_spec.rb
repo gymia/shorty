@@ -6,7 +6,7 @@ describe Shorty::Controllers::Show do
   describe '#call,  GET /:shorten' do
     context 'given an existing shortcode' do
       before do
-        Shorty::ShortyEntity.new(url: 'abc.com', shortcode: '777777').create
+        Shorty::Models::Shorty.new(url: 'abc.com', shortcode: '777777').create
         get '/777777'
       end
 
@@ -19,8 +19,8 @@ describe Shorty::Controllers::Show do
         expect(last_response.header).to include(expected_location)
       end
 
-      it 'increments redirect of the entity instance' do
-        expect_any_instance_of(Shorty::ShortyEntity).to receive(:increment_redirect)
+      it 'increments redirect of the shorty model instance' do
+        expect_any_instance_of(Shorty::Models::Shorty).to receive(:increment_redirect)
         get '/777777'
       end
     end

@@ -41,7 +41,7 @@ describe Shorty::Shortcode::Validator do
   describe '#perform' do
     context 'given a shortcode in use' do
       before do
-        Shorty::ShortyEntity.new(url: 'google.com', shortcode: '123123').create
+        Shorty::Models::Shorty.new(url: 'google.com', shortcode: '123123').create
       end
       expected_hash = {
         message: "The the desired shortcode is already in use. Shortcodes are case-sensitive.",
