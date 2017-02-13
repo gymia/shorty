@@ -2,17 +2,7 @@ require 'json'
 
 module Shorty
   module Controllers
-    class Create
-      Success = lambda { |shorty_hash|
-        content = [shorty_hash.to_json]
-        [201, {"CONTENT_TYPE" => "application/json"}, content]
-      }
-
-      Error = lambda { |error|
-        content = [{ description: error[:message] }.to_json]
-        [error[:code], {"CONTENT_TYPE" => "application/json"}, content]
-      }
-
+    class Create < Base
       def call(env)
         req       = Rack::Request.new(env)
         url       = req.params["url"] || nil
@@ -23,8 +13,7 @@ module Shorty
 
         shorty = Models::Shorty.new(url: url, shortcode: shortcode)
         if shorty.create
-          shorty_hash = { url: shorty.url, shortcode: shorty.shortcode }
-          Success.call(shorty_hash)
+          Created.call({ url: shorty.url, shortcode: shorty.shortcode })
         else
           Error.call(shorty.error)
         end
