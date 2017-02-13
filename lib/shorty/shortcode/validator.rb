@@ -10,10 +10,9 @@ module Shorty
       end
 
       def perform
-        if in_use?
-          Errors.in_use
-        elsif !shortcode.nil? && !qualified?
-          Errors.not_match_requirements
+        if shortcode
+          return Errors.in_use if in_use?
+          return Errors.not_match_requirements if !qualified?
         end
       end
 
@@ -21,7 +20,7 @@ module Shorty
       attr_reader :shortcode
 
       def in_use?
-        Models::Shorty.find(shortcode) if shortcode
+        Models::Shorty.find(shortcode)
       end
     end
   end
