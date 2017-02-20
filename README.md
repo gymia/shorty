@@ -35,7 +35,7 @@ steeps are:
 
 * Setup and build the basics of the environment:
 ```
-docker-compose build
+./scripts/copy_files.sh && docker-compose build
 ```
 * Start the application itself(it will start redis and also the application on
   port 9292 by default):
