@@ -1,0 +1,5 @@
+gem 'grape'
+gem 'activerecord'
+gem 'otr-activerecord'
+gem 'grape-raketasks'
+gem 'sqlite3'
