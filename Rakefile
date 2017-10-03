@@ -1,14 +1,18 @@
 # Rakefile
-
 require 'rake'
 require 'bundler'
+require 'grape'
 Bundler.setup
-require 'grape-raketasks'
-require 'grape-raketasks/tasks'
-require "bundler/setup"
+
 load "tasks/otr-activerecord.rake"
 
-desc 'load the Sinatra environment.'
-task :environment do
-  require File.expand_path('impraise_api', File.dirname(__FILE__))
+# task :environment do
+#   require File.expand_path('impraise_api', File.dirname(__FILE__))
+# end
+
+namespace :db do
+  # Some db tasks require your app code to be loaded; they'll expect to find it here
+  task :environment do
+    require_relative 'impraise_api'
+  end
 end
