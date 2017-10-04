@@ -11,17 +11,20 @@ describe Impraise::API do
       it 'with no url returns 400' do
         post 'shorten', {url: ''}
         expect(last_response.status).to eq(400)
+        expect(last_response.body).to include(ShortcodeData::ERROR_MSG_URL)
       end
 
       it 'that already exists fails with appropriate error' do
         ShortcodeData.create!(shortcode: 'aaaa', url: 'http://www.google.com')
         post 'shorten', {shortcode: 'aaaa', url: 'http://www.yahoo.com'}.to_json,{ 'CONTENT_TYPE' => 'application/json' }
         expect(last_response.status).to eq(409)
+        expect(last_response.body).to include(ShortcodeData::ERROR_MSG_ALREADY_TAKEN)
       end
 
       it 'with bad shortcode form fails with appropriate error' do
         post 'shorten', {shortcode: 'aaa', url: 'http://www.yahoo.com'}.to_json, { 'CONTENT_TYPE' => 'application/json' }
         expect(last_response.status).to eq(422)
+        expect(last_response.body).to include(ShortcodeData::ERROR_MSG_REGEXP)
       end
 
       it 'should succeed and return shortcode if url, regexp is good and doesnt already exist' do

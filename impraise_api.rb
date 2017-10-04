@@ -6,6 +6,7 @@ require 'otr-activerecord'
 require 'sqlite3'
 require_relative 'models/shortcode_data'
 require 'introspective_grape'
+#require 'byebug'
 OTR::ActiveRecord.configure_from_file!('config/database.yml')
 
 module Impraise
@@ -17,28 +18,19 @@ module Impraise
     end
 
     post '/shorten' do
-      if params[:url].blank?
-        status 400
-        return "url is not present"
-      elsif params.has_key?(:shortcode)
-        if !(/\A[0-9a-zA-Z_]{4,}\Z/.match(params[:shortcode]))
-          status 422
-          return "The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$"
-        elsif ShortcodeData.where(shortcode: params[:shortcode]).present?
-           status 409
-           return "The the desired shortcode is already in use"
+        shortcode = ShortcodeData.new(url: params[:url], shortcode: params[:shortcode])
+        if shortcode.save
+          return {shortcode: shortcode.shortcode}
+        elsif shortcode.missing_url?
+          status 400
+        elsif shortcode.code_already_taken?
+          status(409)
+        elsif shortcode.code_invalid?
+          status(422)
         else
-          ShortcodeData.create(url: params[:url], shortcode: params[:shortcode])
-          return {shortcode: params[:shortcode]}
+          status(500)
         end
-      else
-        shortcode = ShortcodeData.new(url: params[:url])
-        while (!shortcode.valid?)
-          shortcode = ShortcodeData.new(url: params[:url])
-        end
-        shortcode.save!
-        return {shortcode: shortcode.shortcode}
-      end
+        return shortcode.errors.full_messages[0]
     end
 
     get '/:shortcode' do
