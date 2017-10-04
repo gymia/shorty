@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 describe Impraise::API do
   include Rack::Test::Methods
 

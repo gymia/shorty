@@ -5,10 +5,9 @@ require 'active_record'
 require 'otr-activerecord'
 require 'sqlite3'
 require_relative 'models/shortcode_data'
-require 'byebug'
 require 'introspective_grape'
-
 OTR::ActiveRecord.configure_from_file!('config/database.yml')
+
 module Impraise
   class API < Grape::API
     format :json
@@ -17,7 +16,6 @@ module Impraise
       ShortcodeData.limit(1000)
     end
 
-    desc 'Creates a new shortcode together with its data'
     post '/shorten' do
       if params[:url].blank?
         status 400

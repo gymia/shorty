@@ -13,8 +13,8 @@
 # it.
 # We need to set the environment to test
 ENV['RACK_ENV'] = 'test'
-require 'spec_helper'
 require 'database_cleaner'
+require 'rack/test'
 require_relative '../impraise_api'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

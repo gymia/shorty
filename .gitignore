@@ -2,3 +2,4 @@
 .byebug_history
 impraise
 impraise_test
+.vagrant/*
