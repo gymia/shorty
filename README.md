@@ -1,8 +1,12 @@
-﻿#build the project 
-1)checkout my branch
+#to build the project 
+
+1)checkout the branch
 2)run: build.sh
-#start the server
+
+#to start the server (running on port 9292)
+
  rackup
-#run the tests
+ 
+#to run the tests
  rspec
 
