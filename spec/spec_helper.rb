@@ -14,6 +14,7 @@
 # We need to set the environment to test
 ENV['RACK_ENV'] = 'test'
 require 'spec_helper'
+require 'database_cleaner'
 require_relative '../impraise_api'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
@@ -31,6 +32,19 @@ RSpec.configure do |config|
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
 
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.

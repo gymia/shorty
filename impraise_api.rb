@@ -5,10 +5,14 @@ require 'active_record'
 require 'otr-activerecord'
 require 'sqlite3'
 require_relative 'models/shortcode_data'
+require 'byebug'
+require 'introspective_grape'
+
 OTR::ActiveRecord.configure_from_file!('config/database.yml')
 module Impraise
   class API < Grape::API
     format :json
+    formatter :json, IntrospectiveGrape::Formatter::CamelJson
     get '/' do
       ShortcodeData.limit(1000)
     end
@@ -19,20 +23,20 @@ module Impraise
         status 400
         return "Missing url"
       elsif params.has_key?(:shortcode)
-        if !(params[:shortcode]=~/^[0-9a-zA-Z_]{4,}$/)
+        if !(/\A[0-9a-zA-Z_]{4,}\Z/.match(params[:shortcode]))
           status 422
           return "The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$"
         elsif ShortcodeData.where(shortcode: params[:shortcode]).present?
            status 409
            return "The desired shortcode is already present."
         else
-          ShortcodeData.create!(url: params[:url], shortcode: params[:shortcode], start_date: DateTime.now)
+          ShortcodeData.create(url: params[:url], shortcode: params[:shortcode])
           return {shortcode: params[:shortcode]}
         end
       else
-        shortcode = ShortcodeData.new(url: params[:url], shortcode: ShortcodeData.generate_random_token, start_date: DateTime.now)
+        shortcode = ShortcodeData.new(url: params[:url])
         while (!shortcode.valid?)
-          shortcode = ShortcodeData.new(url: params[:url], shortcode: ShortcodeData.generate_random_token, start_date: DateTime.now)
+          shortcode = ShortcodeData.new(url: params[:url])
         end
         shortcode.save!
         return {shortcode: shortcode.shortcode}

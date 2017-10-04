@@ -3,5 +3,10 @@ gem 'activerecord'
 gem 'otr-activerecord'
 gem 'sqlite3'
 gem 'rake'
-gem 'rspec'
-gem 'rack-test'
+gem 'introspective_grape'
+group :test do
+  gem 'database_cleaner'
+  gem 'rspec'
+  gem 'rack-test'
+  gem 'byebug'
+end

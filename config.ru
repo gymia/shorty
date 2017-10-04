@@ -1,3 +1,4 @@
+#\ --host 0.0.0.0
 require './impraise_api'
 
 use OTR::ActiveRecord::ConnectionManagement
