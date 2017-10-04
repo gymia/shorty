@@ -19,14 +19,14 @@ module Impraise
     post '/shorten' do
       if params[:url].blank?
         status 400
-        return "Missing url"
+        return "url is not present"
       elsif params.has_key?(:shortcode)
         if !(/\A[0-9a-zA-Z_]{4,}\Z/.match(params[:shortcode]))
           status 422
           return "The shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$"
         elsif ShortcodeData.where(shortcode: params[:shortcode]).present?
            status 409
-           return "The desired shortcode is already present."
+           return "The the desired shortcode is already in use"
         else
           ShortcodeData.create(url: params[:url], shortcode: params[:shortcode])
           return {shortcode: params[:shortcode]}
