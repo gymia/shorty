@@ -1,7 +1,8 @@
 #to build the project 
+The only requirement is for your machine to have git and you checkout and cd into my branch.
+then simply run:
 
-1)checkout the branch
-2)run: build.sh
+./build.sh
 
 #to start the server (running on port 9292)
 
