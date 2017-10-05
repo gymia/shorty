@@ -3,7 +3,7 @@ The only requirement is for your machine to have git and you checkout and cd int
 
 now simply run:
 
-./build.sh
+bash build.sh
 
 #to start the server (running on port 9292)
 
